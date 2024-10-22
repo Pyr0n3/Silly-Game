@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class CharController : MonoBehaviour
@@ -8,11 +6,17 @@ public class CharController : MonoBehaviour
     [SerializeField] private Vector3 jumpVelocity;
     [SerializeField] private Vector3 moveDirection;
     [SerializeField] private CharacterController controller;
-    [SerializeField] private float rotationRate = 0f;
+    [SerializeField] private float rotationRate = 5f; // Adjust as necessary
     [SerializeField] private float jumpHeight = 1.5f;
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private bool grounded;
     private Animator animator;
+
+    // Ground detection
+    [SerializeField] private Transform groundCheck;     // The object to check the ground from
+    [SerializeField] private float groundDistance = 0.3f; // Distance for ground detection
+    [SerializeField] private LayerMask groundMask;      // Which layers count as ground
+    private bool grounded;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -22,37 +26,60 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Ground check using a sphere cast
+        grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        grounded = controller.isGrounded;
+        // Set the isGrounded parameter in the Animator
+        animator.SetBool("isGrounded", grounded);
 
+        // Reset jump velocity when grounded
         if (grounded && jumpVelocity.y < 0)
         {
             jumpVelocity.y = 0f;
         }
 
+        // Get player input for movement
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
+        // Set moveDirection based on input
         moveDirection = new Vector3(horizontal, 0, vertical);
 
-        bool isMoving = (moveDirection.x != 0 || moveDirection.z != 0);
+        // Check if the player is moving (with a small threshold)
+        bool isMoving = moveDirection.magnitude > 0.1f;
 
+        // Set the isMoving parameter in the Animator
         animator.SetBool("isMoving", isMoving);
 
-        moveDirection *= speed;
-
+        // Only rotate and move if the player is actually moving
         if (isMoving)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationRate);
+            // Normalize moveDirection to keep it consistent
+            moveDirection.Normalize();
+
+            // Rotate the character towards the move direction smoothly
+            if (moveDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationRate * Time.deltaTime);
+            }
+
+            // Apply movement speed
+            moveDirection *= speed;
+            controller.Move(moveDirection * Time.deltaTime);
         }
 
-        controller.Move(moveDirection * Time.deltaTime);
-   
+        // Jumping logic
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
-           jumpVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            // Set jump velocity using the formula for jump height
+            jumpVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
+
+        // Apply gravity to the jump velocity
         jumpVelocity.y += gravity * Time.deltaTime;
+
+        // Move the character vertically (jumping and falling)
         controller.Move(jumpVelocity * Time.deltaTime);
     }
 }
