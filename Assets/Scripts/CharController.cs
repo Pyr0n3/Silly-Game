@@ -31,7 +31,7 @@ public class CharController : MonoBehaviour
         //Gizmos.DrawSphere(groundCheck.position, groundDistance);
 
         grounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
-        
+
 
         animator.SetBool("isGrounded", grounded);
 
@@ -51,6 +51,9 @@ public class CharController : MonoBehaviour
         Vector3 cameraForward = camera.transform.forward;
         cameraForward.y = 0; // Ignore the vertical component
         cameraForward.Normalize(); // Normalize the direction
+
+        // Set gravity to 0 when grounded
+
 
         // Get movement input
         float horizontal = Input.GetAxis("Horizontal");
