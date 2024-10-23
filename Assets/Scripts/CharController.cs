@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CharController : MonoBehaviour
 {
@@ -6,33 +7,44 @@ public class CharController : MonoBehaviour
     [SerializeField] private CharacterController controller;
     [SerializeField] private float jumpHeight = 1.5f;
     [SerializeField] private float gravity = -9.81f;
-    private Animator animator;
+    public Animator animator;
 
     // Ground detection
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance = 0.15f;
+    [SerializeField] private float groundDistance = .5f;
     [SerializeField] private LayerMask groundMask;
     private bool grounded;
 
     private Vector3 velocity;
 
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         // Ground check logic
-        grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //Gizmos.DrawSphere(groundCheck.position, groundDistance);
+
+        grounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
+        
+
         animator.SetBool("isGrounded", grounded);
 
         // Reset the y-velocity when grounded
         if (grounded && velocity.y < 0)
         {
-            velocity.y = -2f; // Apply a small downward force to stay grounded
+            //velocity.y = 0f;//-2f; // Apply a small downward force to stay grounded
+            Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.green, 0.1f);
         }
+        else
+            Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.red, 0.1f);
+
+        Debug.Log(groundCheck.up * -groundDistance);
 
         // Get the camera's forward direction
         Camera camera = Camera.main;
@@ -50,6 +62,7 @@ public class CharController : MonoBehaviour
         // Check if the player is moving
         bool isMoving = moveDirection.magnitude > 0.1f;
         animator.SetBool("isMoving", isMoving);
+        //animator.SetFloat("speed", moveDirection.magnitude);
 
         if (isMoving)
         {

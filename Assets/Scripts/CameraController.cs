@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
         // Calculate the target position of the camera
         Vector3 desiredPosition = player.position - (targetRotation * Vector3.forward * distanceFromPlayer);
 
-        // Check for ground collision
+        // Check for ground collision (Doesn't work yet)
         RaycastHit hit;
         if (Physics.Raycast(player.position, -Vector3.up, out hit, distanceFromPlayer, groundMask))
         {
