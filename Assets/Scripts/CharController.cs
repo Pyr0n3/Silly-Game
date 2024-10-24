@@ -38,7 +38,7 @@ public class CharController : MonoBehaviour
         // Reset the y-velocity when grounded
         if (grounded && velocity.y < 0)
         {
-            //velocity.y = 0f;//-2f; // Apply a small downward force to stay grounded
+            velocity.y = -2f; // Apply a small downward force to stay grounded
             Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.green, 0.1f);
         }
         else
@@ -51,9 +51,6 @@ public class CharController : MonoBehaviour
         Vector3 cameraForward = camera.transform.forward;
         cameraForward.y = 0; // Ignore the vertical component
         cameraForward.Normalize(); // Normalize the direction
-
-        // Set gravity to 0 when grounded
-
 
         // Get movement input
         float horizontal = Input.GetAxis("Horizontal");
@@ -76,6 +73,12 @@ public class CharController : MonoBehaviour
             // Apply movement
             controller.Move(moveDirection * speed * Time.deltaTime);
         }
+        else
+        {
+            //Stop moving when no input is placed
+            moveDirection = Vector3.zero;
+        }
+
 
         // Jumping logic
         if (grounded && Input.GetKeyDown(KeyCode.Space))
