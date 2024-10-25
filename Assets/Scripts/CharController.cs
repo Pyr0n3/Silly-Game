@@ -1,12 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class CharController : MonoBehaviour
 {
-    [SerializeField] private int speed = 5;
+    [SerializeField] private int speed = 30;
     [SerializeField] private CharacterController controller;
-    [SerializeField] private float jumpHeight = 1.5f;
-    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float jumpHeight = 15f;
+    [SerializeField] private float gravity = -150f;
     public Animator animator;
 
     // Ground detection
@@ -81,7 +82,7 @@ public class CharController : MonoBehaviour
 
 
         // Jumping logic
-        if (grounded && Input.GetKeyDown(KeyCode.Space))
+        if (grounded && Input.GetKey(KeyCode.Space))
         {
             // Calculate jump velocity using the formula for height
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
