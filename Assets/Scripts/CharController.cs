@@ -45,8 +45,6 @@ public class CharController : MonoBehaviour
         else
             Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.red, 0.1f);
 
-        Debug.Log(groundCheck.up * -groundDistance);
-
         // Get the camera's forward direction
         Camera camera = Camera.main;
         Vector3 cameraForward = camera.transform.forward;
