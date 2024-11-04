@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
@@ -7,8 +8,12 @@ public class CubeSpawner : MonoBehaviour
     public GameObject greenCubePrefab;
     public GameObject blueCubePrefab;
     public GameObject goldCubePrefab;
+    public GameObject purpleCubePrefab;
+    public GameObject godCubePrefab;
 
     // Probability for each cube type
+    private float godProbability = 0.000001f; // Nobody is ever getting this
+    private float purpleProbability = 0.0001f; // 1/10000 probability for purple
     private float goldProbability = 0.001f; // 1/1000 probability for gold
     private float blueProbability = 0.125f;   // 1/8 probability for blue
     private float greenProbability = 0.25f;   // 1/4 probability for green
@@ -16,7 +21,7 @@ public class CubeSpawner : MonoBehaviour
 
     // List to keep track of spawned cubes
     private List<GameObject> spawnedCubes = new List<GameObject>();
-    private int maxCubes = 10;
+    private int maxCubes = 100;
 
     public void SpawnRandomCube()
     {
@@ -24,11 +29,15 @@ public class CubeSpawner : MonoBehaviour
 
         // Randomize cube type based on probability
         float randomValue = Random.value;
-        if (randomValue < goldProbability)
+        if (randomValue < godProbability)
+            cubeToSpawn = godCubePrefab;
+        else if (randomValue < purpleProbability + godProbability)
+            cubeToSpawn = purpleCubePrefab;
+        else if (randomValue < goldProbability + purpleProbability + godProbability)
             cubeToSpawn = goldCubePrefab;
-        else if (randomValue < goldProbability + blueProbability)
+        else if (randomValue < goldProbability + blueProbability + purpleProbability + godProbability)
             cubeToSpawn = blueCubePrefab;
-        else if (randomValue < goldProbability + blueProbability + greenProbability)
+        else if (randomValue < goldProbability + blueProbability + greenProbability + purpleProbability + godProbability)
             cubeToSpawn = greenCubePrefab;
         else
             cubeToSpawn = redCubePrefab;

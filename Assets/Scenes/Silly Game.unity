@@ -8915,8 +8915,8 @@ Transform:
   m_GameObject: {fileID: 1285540154}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.02758789, y: 0, z: 0.5235748}
-  m_LocalScale: {x: 19.267536, y: 2.3499, z: 1}
+  m_LocalPosition: {x: 0.02758789, y: 1.84, z: 0.5235748}
+  m_LocalScale: {x: 19.267536, y: 5.491716, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1979205847}
@@ -11252,6 +11252,8 @@ MonoBehaviour:
   greenCubePrefab: {fileID: 8592343929348499647, guid: c142c841604ad4d42b187f33e104f4fb, type: 3}
   blueCubePrefab: {fileID: 4178639476382579036, guid: 231a1d76db681954cbe611a786f659cb, type: 3}
   goldCubePrefab: {fileID: 9130555068956122561, guid: 829ae5e44ceef7f4c96bb1f09c8bd9ae, type: 3}
+  purpleCubePrefab: {fileID: 0}
+  godCubePrefab: {fileID: 8684478357101437915, guid: f0cb3f8c3d0df954b8763ae920f3ebaa, type: 3}
 --- !u!1 &1582312207
 GameObject:
   m_ObjectHideFlags: 0
@@ -14866,15 +14868,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979205846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5235725}
-  m_LocalScale: {x: 0.18204294, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.52357394}
+  m_LocalScale: {x: 0.18204294, y: 0.42789903, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1285540158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00017135963, y: 0}
+  m_AnchoredPosition: {x: -0.00017113239, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &1979205848
@@ -14963,7 +14965,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Walk up to the cube and press E to spawn a random cube \n\nGO FOR GOLD!!!"
+  m_text: "Walk up to the cube and press E to spawn a random cube \n\n==Rarities==\nRed:
+    1/2\nGreen: 1/4\nBlue: 1/8\nGold: 1/1000\nPurple: 1/10000\n???: 1/1000000"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
