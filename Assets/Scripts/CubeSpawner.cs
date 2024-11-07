@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using TMPro;
 
@@ -16,135 +15,108 @@ public class CubeSpawner : MonoBehaviour
     public TextMeshPro pityText;
 
     // Probability for each cube type
-    private float godProbability = 0.000001f; //Nobodys ever getting this legit
-    private float purpleProbability = 0.0001f; // 1/10000, ill be pretty surprised if someone gets this legit
-    private float goldProbability = 0.001f; // 1/1000, more common than you'd think
-    private float blueProbability = 0.125f; // 1/8, fairly common
-    private float greenProbability = 0.25f; // 1/4, very common
-    private float redProbability = 0.5f; // 1/2, i didn't even need to add this i just wanted an excuse to add a funny comment :p
+    private float godProbability = 0.000001f;
+    private float purpleProbability = 0.0001f;
+    private float goldProbability = 0.001f;
+    private float blueProbability = 0.125f;
+    private float greenProbability = 0.25f;
+    private float redProbability = 0.5f;
 
     // List to keep track of spawned cubes
     private List<GameObject> spawnedCubes = new List<GameObject>();
-    private int maxCubes = 100; // alot for the small area
+    private int maxCubes = 1000;
 
     // Pity values
-    private int godPity = 2500; // If i feel like it i'll increase this to like 10k
-    private int purplePity = 400; // This feels way too common
+    private int godPity = 250000;
+    private int purplePity = 4000;
 
     private void Start()
     {
-        // Find A CERTAIN SECRET YOU SHOULD DEFINETLY NOT LOOK FOR
-        if (pityText == null)                                                    //    STOP BEING SO NOSY!!!!
-        {                                                                        //
-            GameObject pityTextObject = GameObject.Find("PityText");             //  STOP BEING SO NOSY!!!!
-            if (pityTextObject != null)                                          //             STOP BEING SO NOSY!!!!
-            {                                                                    //
-                pityText = pityTextObject.GetComponent<TextMeshPro>();           //       STOP BEING SO NOSY!!!!
-            }                                                                    //            STOP BEING SO NOSY!!!!
-            else                                                                 //
-            {                                                                    //        STOP BEING SO NOSY!!!!
-                Debug.LogError("PityText object not found in the scene.");       //                      STOP BEING SO NOSY!!!! 
-            }                                                                    //
-        }                                                                        //   STOP BEING SO NOSY!!!!
+        if (pityText == null)
+        {
+            GameObject pityTextObject = GameObject.Find("PityText");
+            if (pityTextObject != null)
+            {
+                pityText = pityTextObject.GetComponent<TextMeshPro>();
+            }
+            else
+            {
+                Debug.LogError("PityText object not found in the scene.");
+            }
+        }
 
         UpdatePityText();
     }
 
-    public void SpawnRandomCube()
+    public void SpawnSingleCube()
+    {
+        SpawnSingleCubeInstance();
+    }
+
+    public void SpawnMultipleCubes(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            SpawnSingleCubeInstance();
+        }
+    }
+
+    private void SpawnSingleCubeInstance()
     {
         GameObject cubeToSpawn;
         Vector3 spawnPos;
 
         // Randomize cube type based on probability
         float randomValue = Random.value;
+        Debug.Log("Random Value: " + randomValue);
 
-        // State value in log
-        Debug.Log(randomValue);
-
-        // Decrease godPity each time the button is pressed
+        // Decrease godPity and purplePity
         godPity--;
-        if (godPity < 0)
-            godPity = 2500;
-
-        // Decrease purplePity each time the button is pressed
+        if (godPity < 0) godPity = 250000;
         purplePity--;
-        if (purplePity < 0)
-            purplePity = 400;
+        if (purplePity < 0) purplePity = 4000;
 
-        // Spawning cubes based on the number from Random.value
+        // Determine cube type based on probabilities
         if (randomValue < godProbability)
         {
             Debug.Log("GOD HAS ARRIVED!");
             cubeToSpawn = godCubePrefab;
-            spawnPos = new Vector3(147.52f, 279.6f, 342.9254f);
-        }
-        else if (randomValue < purpleProbability + godProbability)
-        {
-            cubeToSpawn = purpleCubePrefab;
-            Debug.Log("PURPLE SPAWNED!?");
-
-            // Generate a random spawn position
-            spawnPos = new Vector3(
-                Random.Range(110f, 176f),
-                50f,
-                Random.Range(62f, 139f)
-            );
-        }
-        else if (randomValue < goldProbability + purpleProbability + godProbability)
-        {
-            cubeToSpawn = goldCubePrefab;
-            Debug.Log("Gold spawned!");
-
-            // Generate a random spawn position
-            spawnPos = new Vector3(
-                Random.Range(110f, 176f),
-                50f,
-                Random.Range(62f, 139f)
-            );
-        }
-        else if (randomValue < goldProbability + blueProbability + purpleProbability + godProbability)
-        {
-            cubeToSpawn = blueCubePrefab;
-            Debug.Log("Blue cube spawned");
-
-            // Generate a random spawn position
-            spawnPos = new Vector3(
-                Random.Range(110f, 176f),
-                50f,
-                Random.Range(62f, 139f)
-            );
-        }
-        else if (randomValue < goldProbability + blueProbability + greenProbability + purpleProbability + godProbability) //Theres probably a better way to do this T-T
-        {
-            cubeToSpawn = greenCubePrefab;
-            Debug.Log("Green cube spawned");
-
-            // Generate a random spawn position
-            spawnPos = new Vector3(
-                Random.Range(110f, 176f),
-                50f,
-                Random.Range(62f, 139f)
-            );
+            spawnPos = new Vector3(147.52f, 279.6f, 342.9254f); // Fixed spawn location for God cube
         }
         else
         {
-            cubeToSpawn = redCubePrefab;
-            Debug.Log("Red cube spawned");
-
-            // Generate a random spawn position
             spawnPos = new Vector3(
-                Random.Range(110f, 176f),
-                50f,
-                Random.Range(62f, 139f)
+                Random.Range(176f, 371f),
+                57.5f,
+                Random.Range(63f, 298f)
             );
-        }
 
-        // Generate a random spawn position
-        Vector3 randomPosition = new Vector3(
-            Random.Range(110f, 176f),
-            50f,
-            Random.Range(62f, 139f)
-        );
+            if (randomValue < purpleProbability + godProbability)
+            {
+                cubeToSpawn = purpleCubePrefab;
+                Debug.Log("PURPLE SPAWNED!?");
+            }
+            else if (randomValue < goldProbability + purpleProbability + godProbability)
+            {
+                cubeToSpawn = goldCubePrefab;
+                Debug.Log("Gold spawned!");
+            }
+            else if (randomValue < blueProbability + goldProbability + purpleProbability + godProbability)
+            {
+                cubeToSpawn = blueCubePrefab;
+                Debug.Log("Blue cube spawned");
+            }
+            else if (randomValue < greenProbability + blueProbability + goldProbability + purpleProbability + godProbability)
+            {
+                cubeToSpawn = greenCubePrefab;
+                Debug.Log("Green cube spawned");
+            }
+            else
+            {
+                cubeToSpawn = redCubePrefab;
+                Debug.Log("Red cube spawned");
+            }
+        }
 
         // Instantiate cube with physics components
         GameObject newCube = Instantiate(cubeToSpawn, spawnPos, Quaternion.identity);
@@ -153,37 +125,26 @@ public class CubeSpawner : MonoBehaviour
         spawnedCubes.Add(newCube);
 
         // Pity system
-        if (godPity == 0)
-        {
-            godProbability = 1f;
-        }
-        else godProbability = 0.000001f;
+        godProbability = godPity == 0 ? 1f : 0.000001f;
+        purpleProbability = purplePity == 0 ? 1f : 0.0001f;
 
-        if (purplePity == 0)
-        {
-            purpleProbability = 1f;
-        }
-        else purpleProbability = 0.0001f;
-
-        // Update THE NOTHING!!! THERES NOTHING THERE!!!!
-        UpdatePityText();         //IGNORE THIS GO PLAY THE GAME INSTEAD OF SNOOPING       STOP BEING SO NOSY!!!!
+        // Update pity text
+        UpdatePityText();
 
         // Check if the max limit is exceeded
         if (spawnedCubes.Count > maxCubes)
         {
-            // Remove and destroy the oldest cube
             GameObject oldestCube = spawnedCubes[0];
             spawnedCubes.RemoveAt(0);
             Destroy(oldestCube);
         }
     }
 
-    // Update the PityText with current pity values
-    private void UpdatePityText()                                                       //                STOP BEING SO NOSY!!!!
-    {                                                                                   //       STOP BEING SO NOSY!!!!
-        if (pityText != null)                                                           //            STOP BEING SO NOSY!!!!
-        {                                                                               //         STOP BEING SO NOSY!!!!
-            pityText.text = $"God Pity: {godPity}\nPurple Pity: {purplePity}";          //                     STOP BEING SO NOSY!!!!
-        }                                                                               //      STOP BEING SO NOSY!!!!
-    }                                                                                   //    STOP BEING SO NOSY!!!!
+    private void UpdatePityText()
+    {
+        if (pityText != null)
+        {
+            pityText.text = $"God Pity: {godPity}\nPurple Pity: {purplePity}";
+        }
+    }
 }
