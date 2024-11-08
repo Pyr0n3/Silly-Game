@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,11 +13,15 @@ public class CameraController : MonoBehaviour
     public Button switchCameraButton; // Button to trigger camera switch
     public GameObject pausedCanvas; // Reference to the paused canvas
     public Button quitButton; // Button to quit the game
+    public GameObject optionsCanvas; // Reference to the options canvas
+    public Button optionsButton; // Button to go from pause to options menu
+    public Button backButton; // Button to go from options to pause menu
 
     private float yaw = 0f; // Horizontal rotation (left/right)
     private float pitch = 0f; // Vertical rotation (up/down)
     private bool isCameraActive = false; // Track if the camera is active
     private bool isPaused = false; // Track if the game is paused
+    private bool isOptionsMenuOpen = false; // Track if options menu is open
 
     void Start()
     {
@@ -33,16 +36,21 @@ public class CameraController : MonoBehaviour
         // Assign the button's onClick event
         switchCameraButton.onClick.AddListener(ActivateCamera); // Link the button to the function
 
-        // Ensure the paused canvas is hidden at the start
+        // Ensure the paused and options canvases are hidden at the start
         pausedCanvas.SetActive(false);
+        optionsCanvas.SetActive(false);
 
         // Assign the quit button event
         quitButton.onClick.AddListener(QuitGame); // Link the quit button to QuitGame function
+
+        // Assign the menu navigation buttons
+        optionsButton.onClick.AddListener(OpenOptionsMenu);
+        backButton.onClick.AddListener(CloseOptionsMenu);
     }
 
     void Update()
     {
-        if (isCameraActive && !isPaused)
+        if (isCameraActive && !isPaused && !isOptionsMenuOpen)
         {
             // Get mouse input
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -58,15 +66,18 @@ public class CameraController : MonoBehaviour
             // Calculate the desired rotation
             Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0f);
 
-            // Calculate the target position of the camera
+            // Calculate the desired position of the camera
             Vector3 desiredPosition = player.position - (targetRotation * Vector3.forward * distanceFromPlayer);
 
-            // Check for ground collision (if necessary)
+            // Check for ground collision and prevent going below the floor
             RaycastHit hit;
             if (Physics.Raycast(player.position, -Vector3.up, out hit, distanceFromPlayer, groundMask))
             {
-                // Move the camera above the ground
-                desiredPosition.y = hit.point.y + 0.5f;
+                // If the camera position is too low (below the floor), adjust it
+                if (desiredPosition.y < hit.point.y + 0.5f) // Adjust this value if needed
+                {
+                    desiredPosition.y = hit.point.y + 0.5f; // Keep camera above ground
+                }
             }
 
             // Smoothly move the camera to the desired position and rotation
@@ -77,7 +88,15 @@ public class CameraController : MonoBehaviour
         // Check if Escape is pressed to toggle pause state
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePause();
+            if (isOptionsMenuOpen)
+            {
+                // Close the options menu when Escape is pressed
+                CloseOptionsMenu();
+            }
+            else
+            {
+                TogglePause(); // Toggle the game pause state
+            }
         }
     }
 
@@ -92,24 +111,57 @@ public class CameraController : MonoBehaviour
     // Function to toggle camera and cursor lock/unlock states and pause the game
     private void TogglePause()
     {
-        if (!isPaused)
+        if (!isPaused) // Pause the game
         {
-            // Pause the game
             isPaused = true;
             Time.timeScale = 0f; // Freeze the game
             Cursor.lockState = CursorLockMode.None; // Unlock cursor
-            Cursor.visible = true;
+            Cursor.visible = true; // Show cursor
             pausedCanvas.SetActive(true); // Show paused canvas
+            optionsCanvas.SetActive(false); // Ensure options menu is hidden
         }
-        else
+        else // Unpause the game
         {
-            // Unpause the game
             isPaused = false;
             Time.timeScale = 1f; // Resume the game
             Cursor.lockState = CursorLockMode.Locked; // Lock cursor again
-            Cursor.visible = false;
+            Cursor.visible = false; // Hide cursor
             pausedCanvas.SetActive(false); // Hide paused canvas
         }
+    }
+
+    // Function to open the options menu and maintain the paused state
+    public void OpenOptionsMenu()
+    {
+        if (!isPaused) return; // Don't open options if already unpaused
+
+        // Keep the game paused
+        isPaused = true;
+        Time.timeScale = 0f; // Freeze the game
+        Cursor.lockState = CursorLockMode.None; // Unlock cursor
+        Cursor.visible = true; // Show cursor
+
+        // Hide the pause menu and show the options menu
+        pausedCanvas.SetActive(false); // Hide paused menu
+        optionsCanvas.SetActive(true); // Show options menu
+
+        isOptionsMenuOpen = true; // Set options menu as open
+    }
+
+    // Function to close the options menu and return to the pause menu
+    public void CloseOptionsMenu()
+    {
+        // Hide the options menu and show the pause menu
+        optionsCanvas.SetActive(false); // Hide options menu
+        pausedCanvas.SetActive(true); // Show paused menu
+
+        isOptionsMenuOpen = false; // Set options menu as closed
+
+        // Keep the game paused
+        isPaused = true;
+        Time.timeScale = 0f; // Freeze the game
+        Cursor.lockState = CursorLockMode.None; // Unlock cursor
+        Cursor.visible = true; // Show cursor
     }
 
     // Function to quit the game
