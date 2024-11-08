@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
 
@@ -28,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
                 // Spawn a single cube immediately if the key is tapped
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    currentSpawner.SpawnSingleCube();
+                    currentSpawner.SpawnSingleCubeInstance(); // Calling the method without arguments
                 }
 
                 // Check if the player is holding down the interact key
@@ -74,9 +73,8 @@ public class PlayerInteraction : MonoBehaviour
     {
         while (true)
         {
-            // Spawn a random number of cubes from 1 to 10
-            int numberOfCubes = Random.Range(1, 11);
-            currentSpawner.SpawnMultipleCubes(numberOfCubes);
+            // Call the new method to spawn a random number of cubes from 1 to 10
+            currentSpawner.SpawnMultipleCubes(); // No arguments passed
             yield return new WaitForSeconds(continuousSpawnInterval);
         }
     }

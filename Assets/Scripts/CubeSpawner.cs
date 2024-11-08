@@ -11,12 +11,14 @@ public class CubeSpawner : MonoBehaviour
     public GameObject goldCubePrefab;
     public GameObject purpleCubePrefab;
     public GameObject godCubePrefab;
+    public GameObject cyanCubePrefab; // Added cyan cube prefab
 
     public TextMeshPro pityText;
-
-    public AudioSource godCubeBuildupAudio; // New audio source for the buildup
+    public AudioSource godCubeBuildupAudio;
+    public AudioSource cyanCubeBuildupAudio; // Added cyan buildup audio reference
 
     private float godProbability = 0.000001f;
+    private float cyanProbability = 0.00001f; // 1 in 100,000 chance for cyan cube
     private float purpleProbability = 0.0001f;
     private float goldProbability = 0.001f;
     private float blueProbability = 0.125f;
@@ -26,24 +28,15 @@ public class CubeSpawner : MonoBehaviour
     private List<GameObject> spawnedCubes = new List<GameObject>();
     private int maxCubes = 1000;
 
-    private int godPity = 200; //You're welcome - P
-    private int purplePity = 40; //You're welcome - P
+    private int godPity = 200;
+    private int purplePity = 40;
+    private int cyanPity = 45000; // Cyan cube pity value
+
+    private ScreenShake screenShake;
 
     private void Start()
     {
-        if (pityText == null)
-        {
-            GameObject pityTextObject = GameObject.Find("PityText");
-            if (pityTextObject != null)
-            {
-                pityText = pityTextObject.GetComponent<TextMeshPro>();
-            }
-            else
-            {
-                Debug.LogError("PityText object not found in the scene.");
-            }
-        }
-
+        // Initialize text, audio, and screen shake as before
         if (godCubeBuildupAudio == null)
         {
             godCubeBuildupAudio = GameObject.Find("GodCubeBuildupAudio").GetComponent<AudioSource>();
@@ -53,35 +46,38 @@ public class CubeSpawner : MonoBehaviour
             }
         }
 
+        if (cyanCubeBuildupAudio == null)
+        {
+            cyanCubeBuildupAudio = GameObject.Find("CyanCubeBuildupAudio").GetComponent<AudioSource>();
+            if (cyanCubeBuildupAudio == null)
+            {
+                Debug.LogError("CyanCubeBuildupAudio object not found in the scene.");
+            }
+        }
+
+        screenShake = Camera.main.GetComponent<ScreenShake>();
         UpdatePityText();
     }
 
-    public void SpawnSingleCube()
-    {
-        SpawnSingleCubeInstance();
-    }
-
-    public void SpawnMultipleCubes(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            SpawnSingleCubeInstance();
-        }
-    }
-
-    private void SpawnSingleCubeInstance()
+    public void SpawnSingleCubeInstance()
     {
         float randomValue = Random.value;
-        Debug.Log("Random Value: " + randomValue);
-
         godPity--;
         if (godPity < 0) godPity = 250000;
         purplePity--;
         if (purplePity < 0) purplePity = 4000;
 
+        cyanPity--; // Decrease cyan pity
+
+        if (cyanPity < 0) // If cyan pity reaches 0, force a cyan cube spawn
+        {
+            StartCoroutine(PlayCyanCubeSpawn());
+            cyanPity = 45000; // Reset cyan pity after spawning
+            return;
+        }
+
         if (randomValue < godProbability)
         {
-            Debug.Log("GOD HAS ARRIVED!");
             StartCoroutine(PlayGodCubeSpawn());
         }
         else
@@ -95,11 +91,20 @@ public class CubeSpawner : MonoBehaviour
             GameObject cubeToSpawn = ChooseCubeType(randomValue);
             GameObject newCube = Instantiate(cubeToSpawn, spawnPos, Quaternion.identity);
             spawnedCubes.Add(newCube);
+
+            // Apply screen shake based on cube type
+            if (cubeToSpawn == purpleCubePrefab && screenShake != null)
+            {
+                screenShake.TriggerShake(0.3f, 0.2f); // Shake for purple cube
+            }
+            else if (cubeToSpawn == cyanCubePrefab && screenShake != null)
+            {
+                StartCoroutine(PlayCyanCubeSpawn()); // Start cyan cube spawn sequence
+            }
         }
 
         godProbability = godPity == 0 ? 1f : 0.000001f;
         purpleProbability = purplePity == 0 ? 1f : 0.0001f;
-
         UpdatePityText();
 
         if (spawnedCubes.Count > maxCubes)
@@ -110,32 +115,72 @@ public class CubeSpawner : MonoBehaviour
         }
     }
 
+    public void SpawnMultipleCubes(int numberOfCubes)
+    {
+        // Spawn a random number of cubes from 1 to 10
+        for (int i = 0; i < numberOfCubes; i++)
+        {
+            SpawnSingleCubeInstance();
+        }
+    }
+
     private GameObject ChooseCubeType(float randomValue)
     {
-        if (randomValue < purpleProbability + godProbability)
+        if (randomValue < godProbability)
         {
-            Debug.Log("PURPLE SPAWNED!?");
+            return godCubePrefab;
+        }
+        else if (randomValue < cyanProbability + godProbability)
+        {
+            Debug.Log("Cyan cube spawned!");
+            return cyanCubePrefab;
+        }
+        else if (randomValue < purpleProbability + cyanProbability + godProbability)
+        {
             return purpleCubePrefab;
         }
-        else if (randomValue < goldProbability + purpleProbability + godProbability)
+        else if (randomValue < goldProbability + purpleProbability + cyanProbability + godProbability)
         {
-            Debug.Log("Gold spawned!");
             return goldCubePrefab;
         }
-        else if (randomValue < blueProbability + goldProbability + purpleProbability + godProbability)
+        else if (randomValue < blueProbability + goldProbability + purpleProbability + cyanProbability + godProbability)
         {
-            Debug.Log("Blue cube spawned");
             return blueCubePrefab;
         }
-        else if (randomValue < greenProbability + blueProbability + goldProbability + purpleProbability + godProbability)
+        else if (randomValue < greenProbability + blueProbability + goldProbability + purpleProbability + cyanProbability + godProbability)
         {
-            Debug.Log("Green cube spawned");
             return greenCubePrefab;
         }
         else
         {
-            Debug.Log("Red cube spawned");
             return redCubePrefab;
+        }
+    }
+
+    private IEnumerator PlayCyanCubeSpawn()
+    {
+        Vector3 spawnPos = new Vector3(147.52f, 279.6f, 342.9254f);
+
+        if (cyanCubeBuildupAudio != null)
+        {
+            cyanCubeBuildupAudio.Play(); // Play buildup audio
+        }
+
+        yield return new WaitForSeconds(3f); // Wait for 3 seconds for buildup
+
+        GameObject cyanCube = Instantiate(cyanCubePrefab, spawnPos, Quaternion.identity);
+        spawnedCubes.Add(cyanCube);
+
+        // Trigger screen shake for cyan cube (moderate shake)
+        if (screenShake != null)
+        {
+            screenShake.TriggerShake(0.4f, 0.25f); // Moderate shake for cyan cube
+        }
+
+        if (cyanCubeBuildupAudio != null)
+        {
+            cyanCubeBuildupAudio.time = 3f; // Skip to the rest of the audio after the buildup
+            cyanCubeBuildupAudio.Play(); // Play the remaining audio after the cube is spawned
         }
     }
 
@@ -148,16 +193,22 @@ public class CubeSpawner : MonoBehaviour
             godCubeBuildupAudio.Play();
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f); // Wait for 2 seconds for buildup
 
         GameObject godCube = Instantiate(godCubePrefab, spawnPos, Quaternion.identity);
         spawnedCubes.Add(godCube);
 
+        // Trigger screen shake for god cube (strong shake)
+        if (screenShake != null)
+        {
+            screenShake.TriggerShake(0.5f, 0.3f); // Strong shake for god cube
+        }
+
         AudioSource godCubeAudio = godCube.GetComponent<AudioSource>();
         if (godCubeAudio != null)
         {
-            godCubeAudio.time = 2f; // Resume from the 2-second mark
-            godCubeAudio.Play();
+            godCubeAudio.time = 2f;
+            godCubeAudio.Play(); // Continue audio after the buildup
         }
     }
 
@@ -165,7 +216,7 @@ public class CubeSpawner : MonoBehaviour
     {
         if (pityText != null)
         {
-            pityText.text = $"God Pity: {godPity}\nPurple Pity: {purplePity}";
+            pityText.text = $"God Pity: {godPity}\nPurple Pity: {purplePity}\nCyan Pity: {cyanPity}";
         }
     }
 }
