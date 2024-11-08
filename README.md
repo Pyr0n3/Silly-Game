@@ -3,11 +3,17 @@ My first major project.
 Figuring out ideas to add, comment anything you think I should add!
 
 
---------- Current ideas ---------
+------------ Key ------------
+
 ;; = Done with updates planned
+
 // = Done with no updates planned
+
 `` = working on it
+
 "" = haven't started on it
+
+--------- Current ideas ---------
 
 ;; Add an rng system for fun 
 
