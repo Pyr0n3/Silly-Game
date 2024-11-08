@@ -4,9 +4,9 @@ Figuring out ideas to add, comment anything you think I should add!
 
 
 --------- Current ideas ---------
-## = Done with updates planned
+!! = Done with updates planned
 // = Done with no updates planned
-|| = working on it
+`` = working on it
 __ = haven't started on it
 
 ## Add an rng system for fun 
