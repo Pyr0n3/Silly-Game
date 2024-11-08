@@ -9,12 +9,15 @@ public class AudioSettings : MonoBehaviour
     public AudioSource godBuildupAudio;  // AudioSource for the god cube buildup sound
     public AudioSource godMainAudio;     // AudioSource for the god cube main sound
     public AudioSource backgroundMusic;
+    public AudioSource cyanBuildupAudio;
+    public AudioSource cyanMainAudio;
 
     public Toggle spawnToggle;
     public Toggle thump1Toggle;
     public Toggle thump2Toggle;
     public Toggle godToggle;             // Single toggle for both god cube sounds (buildup + main)
     public Toggle backgroundToggle;
+    public Toggle cyanToggle;
 
     private void Start()
     {
@@ -27,6 +30,7 @@ public class AudioSettings : MonoBehaviour
         thump2Toggle.onValueChanged.AddListener(delegate { ToggleAudio(thump2Audio, thump2Toggle); });
         godToggle.onValueChanged.AddListener(delegate { ToggleGodAudio(godToggle); });
         backgroundToggle.onValueChanged.AddListener(delegate { ToggleAudio(backgroundMusic, backgroundToggle); });
+        cyanToggle.onValueChanged.AddListener(delegate {  ToggleCyanAudio(cyanToggle); });
 
         // Initialize audio states based on toggles (without playing god audio)
         ToggleAudio(spawnAudio, spawnToggle);
@@ -34,6 +38,7 @@ public class AudioSettings : MonoBehaviour
         ToggleAudio(thump2Audio, thump2Toggle);
         ToggleGodAudio(godToggle);  // Initialize god cube sounds together
         ToggleAudio(backgroundMusic, backgroundToggle);
+        ToggleCyanAudio(cyanToggle);
     }
 
     private void ResetToggles()
@@ -61,6 +66,19 @@ public class AudioSettings : MonoBehaviour
         }
     }
 
+    private void ToggleCyanAudio(Toggle toggle)
+    {
+        if (toggle.isOn)
+        {
+            cyanBuildupAudio.mute = true;
+            cyanMainAudio.mute = true;
+        }
+        else
+        {
+            cyanBuildupAudio.mute = false;
+            cyanMainAudio.mute = false;
+        }
+    }
     private void ToggleGodAudio(Toggle toggle)
     {
         if (godBuildupAudio != null && godMainAudio != null)

@@ -28,9 +28,9 @@ public class CubeSpawner : MonoBehaviour
     private List<GameObject> spawnedCubes = new List<GameObject>();
     private int maxCubes = 1000;
 
-    private int godPity = 200;
+    private int godPity = 250;
     private int purplePity = 40;
-    private int cyanPity = 45000; // Cyan cube pity value
+    private int cyanPity = 100; // Cyan cube pity value
 
     private ScreenShake screenShake;
 
@@ -95,7 +95,7 @@ public class CubeSpawner : MonoBehaviour
             // Apply screen shake based on cube type
             if (cubeToSpawn == purpleCubePrefab && screenShake != null)
             {
-                screenShake.TriggerShake(0.3f, 0.2f); // Shake for purple cube
+                screenShake.TriggerShake(1f, 1f); // Shake for purple cube
             }
             else if (cubeToSpawn == cyanCubePrefab && screenShake != null)
             {
@@ -159,7 +159,11 @@ public class CubeSpawner : MonoBehaviour
 
     private IEnumerator PlayCyanCubeSpawn()
     {
-        Vector3 spawnPos = new Vector3(147.52f, 279.6f, 342.9254f);
+        Vector3 spawnPos = new Vector3(
+                       Random.Range(176f, 371f),
+                       57.5f,
+                       Random.Range(63f, 298f)
+                   );
 
         if (cyanCubeBuildupAudio != null)
         {
@@ -174,13 +178,14 @@ public class CubeSpawner : MonoBehaviour
         // Trigger screen shake for cyan cube (moderate shake)
         if (screenShake != null)
         {
-            screenShake.TriggerShake(0.4f, 0.25f); // Moderate shake for cyan cube
+            screenShake.TriggerShake(2f, 2.5f); // Moderate shake for cyan cube
         }
 
-        if (cyanCubeBuildupAudio != null)
+        AudioSource cyanCubeAudio = cyanCube.GetComponent<AudioSource>();
+        if (cyanCubeAudio != null)
         {
-            cyanCubeBuildupAudio.time = 3f; // Skip to the rest of the audio after the buildup
-            cyanCubeBuildupAudio.Play(); // Play the remaining audio after the cube is spawned
+            cyanCubeAudio.time = 3f;
+            cyanCubeAudio.Play();
         }
     }
 
@@ -201,7 +206,7 @@ public class CubeSpawner : MonoBehaviour
         // Trigger screen shake for god cube (strong shake)
         if (screenShake != null)
         {
-            screenShake.TriggerShake(0.5f, 0.3f); // Strong shake for god cube
+            screenShake.TriggerShake(1f, 5f); // Strong shake for god cube
         }
 
         AudioSource godCubeAudio = godCube.GetComponent<AudioSource>();
@@ -216,7 +221,7 @@ public class CubeSpawner : MonoBehaviour
     {
         if (pityText != null)
         {
-            pityText.text = $"God Pity: {godPity}\nPurple Pity: {purplePity}\nCyan Pity: {cyanPity}";
+            pityText.text = $"God Pity: {godPity}\nCyan Pity: {cyanPity}\nPurple Pity: {purplePity}";
         }
     }
 }

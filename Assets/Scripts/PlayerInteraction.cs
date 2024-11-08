@@ -74,7 +74,7 @@ public class PlayerInteraction : MonoBehaviour
         while (true)
         {
             // Call the new method to spawn a random number of cubes from 1 to 10
-            currentSpawner.SpawnMultipleCubes(); // No arguments passed
+            currentSpawner.SpawnMultipleCubes(5); // No arguments passed
             yield return new WaitForSeconds(continuousSpawnInterval);
         }
     }
