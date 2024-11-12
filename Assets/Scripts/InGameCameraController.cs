@@ -12,15 +12,11 @@ public class InGameCameraController : MonoBehaviour
     public LayerMask groundMask;
     public GameObject pausedCanvas;
     public Button quitButton;
-    public GameObject optionsCanvas;
-    public Button optionsButton;
-    public Button backButton;
 
     private float yaw = 0f;
     private float pitch = 0f;
     private bool isCameraActive = true;
     private bool isPaused = false;
-    private bool isOptionsMenuOpen = false;
 
     private float shakeDuration = 0f;
     private float shakeMagnitude = 0f;
@@ -38,18 +34,15 @@ public class InGameCameraController : MonoBehaviour
         pitch = angles.x;
 
         pausedCanvas.SetActive(false);
-        optionsCanvas.SetActive(false);
 
         quitButton.onClick.AddListener(QuitGame);
-        optionsButton.onClick.AddListener(OpenOptionsMenu);
-        backButton.onClick.AddListener(CloseOptionsMenu);
 
         originalPosition = transform.localPosition;
     }
 
     void Update()
     {
-        if (isCameraActive && !isPaused && !isOptionsMenuOpen)
+        if (isCameraActive && !isPaused)
         {
             // Get mouse input and adjust yaw/pitch for free camera movement
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -90,14 +83,7 @@ public class InGameCameraController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isOptionsMenuOpen)
-            {
-                CloseOptionsMenu();
-            }
-            else
-            {
-                TogglePause();
-            }
+            TogglePause();
         }
     }
 
@@ -123,7 +109,6 @@ public class InGameCameraController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             pausedCanvas.SetActive(true);
-            optionsCanvas.SetActive(false);
         }
         else
         {
@@ -135,38 +120,15 @@ public class InGameCameraController : MonoBehaviour
         }
     }
 
-    public void OpenOptionsMenu()
-    {
-        if (!isPaused) return;
-
-        isPaused = true;
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        pausedCanvas.SetActive(false);
-        optionsCanvas.SetActive(true);
-        isOptionsMenuOpen = true;
-    }
-
-    public void CloseOptionsMenu()
-    {
-        optionsCanvas.SetActive(false);
-        pausedCanvas.SetActive(true);
-        isOptionsMenuOpen = false;
-
-        isPaused = true;
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
     public void QuitGame()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
+
         Application.Quit();
+
 #endif
     }
 }
+
+
