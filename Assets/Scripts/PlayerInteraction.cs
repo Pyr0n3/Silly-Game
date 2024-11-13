@@ -19,6 +19,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             CubeSpawner spawner = hit.collider.GetComponent<CubeSpawner>();
 
+
             // If there is a CubeSpawner within range, assign it to currentSpawner
             if (spawner != null)
             {

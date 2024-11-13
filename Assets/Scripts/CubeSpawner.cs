@@ -12,6 +12,7 @@ public class CubeSpawner : MonoBehaviour
     public GameObject purpleCubePrefab;
     public GameObject godCubePrefab;
     public GameObject cyanCubePrefab; // Added cyan cube prefab
+    public GameObject Trophy;
 
     public TextMeshPro pityText;
     public AudioSource godCubeBuildupAudio;
@@ -34,7 +35,7 @@ public class CubeSpawner : MonoBehaviour
 
     private ScreenShake screenShake;
 
-    private void Start()
+    public void Start()
     {
         // Initialize text, audio, and screen shake as before
         if (godCubeBuildupAudio == null)
@@ -57,6 +58,8 @@ public class CubeSpawner : MonoBehaviour
 
         screenShake = Camera.main.GetComponent<ScreenShake>();
         UpdatePityText();
+
+
     }
 
     public void SpawnSingleCubeInstance()
