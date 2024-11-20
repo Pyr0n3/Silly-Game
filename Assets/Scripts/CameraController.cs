@@ -54,12 +54,20 @@ public class CameraController : MonoBehaviour
     {
         if (isCameraActive && !isPaused && !isOptionsMenuOpen)
         {
-            // Get mouse input and adjust yaw/pitch for free camera movement
+            // Get mouse input
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-            yaw += mouseX;
-            pitch -= mouseY;
+            // Get gamepad input
+            float gamepadX = Input.GetAxis("RightStickHorizontal") * mouseSensitivity * Time.deltaTime;
+            float gamepadY = Input.GetAxis("RightStickVertical") * mouseSensitivity * Time.deltaTime;
+
+            // Combine mouse and gamepad input
+            float finalX = mouseX + gamepadX;
+            float finalY = mouseY + gamepadY;
+
+            yaw += finalX;
+            pitch -= finalY;
             pitch = Mathf.Clamp(pitch, verticalClampMin, verticalClampMax);
 
             Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0f);
@@ -75,7 +83,7 @@ public class CameraController : MonoBehaviour
                 }
             }
 
-            // Apply screen shake effect temporarily if shake is active
+            // Apply screen shake effect if active
             if (shakeDuration > 0)
             {
                 shakeOffset = Random.insideUnitSphere * shakeMagnitude;
@@ -83,7 +91,7 @@ public class CameraController : MonoBehaviour
             }
             else
             {
-                shakeOffset = Vector3.zero; // Reset shake offset when shake is inactive
+                shakeOffset = Vector3.zero; // Reset shake offset
             }
 
             // Smoothly move the camera to the desired position with any active shake offset

@@ -86,6 +86,12 @@ public class CharController : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+        if (grounded && Input.GetButtonDown("Jump"))
+        {
+            // Calculate jump velocity using the formula for height
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
         // Apply gravity to vertical velocity
         velocity.y += gravity * Time.deltaTime;
 

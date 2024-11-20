@@ -24,7 +24,7 @@ public class CubeSpawner : MonoBehaviour
     private float goldProbability = 0.001f;
     private float blueProbability = 0.125f;
     private float greenProbability = 0.25f;
-    private float redProbability = 0.5f;
+    private float redProbability = 0.5f; 
 
     private List<GameObject> spawnedCubes = new List<GameObject>();
     private int maxCubes = 1000;
@@ -65,6 +65,8 @@ public class CubeSpawner : MonoBehaviour
     public void SpawnSingleCubeInstance()
     {
         float randomValue = Random.value;
+        Debug.Log(randomValue);
+        
         godPity--;
         if (godPity < 0) godPity = 250000;
         purplePity--;
@@ -131,7 +133,9 @@ public class CubeSpawner : MonoBehaviour
     {
         if (randomValue < godProbability)
         {
+            Debug.Log("god spawned");
             return godCubePrefab;
+            
         }
         else if (randomValue < cyanProbability + godProbability)
         {
@@ -140,6 +144,7 @@ public class CubeSpawner : MonoBehaviour
         }
         else if (randomValue < purpleProbability + cyanProbability + godProbability)
         {
+            Debug.Log("purple spawned");
             return purpleCubePrefab;
         }
         else if (randomValue < goldProbability + purpleProbability + cyanProbability + godProbability)

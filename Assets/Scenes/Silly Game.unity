@@ -3882,7 +3882,7 @@ MonoBehaviour:
   distanceFromPlayer: 15
   mouseSensitivity: 1500
   verticalClampMin: -80
-  verticalClampMax: 89
+  verticalClampMax: 80
   smoothSpeed: 20
   groundMask:
     serializedVersion: 2

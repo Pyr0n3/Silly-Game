@@ -26,13 +26,13 @@ public class PlayerInteraction : MonoBehaviour
                 currentSpawner = spawner;
 
                 // Spawn a single cube immediately if the key is tapped
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Fire3gamepad"))
                 {
                     currentSpawner.SpawnSingleCubeInstance(); // Calling the method without arguments
                 }
 
                 // Check if the player is holding down the interact key
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKey(KeyCode.E) || Input.GetButton("Fire3gamepad"))
                 {
                     if (!isHoldingKey)
                     {
