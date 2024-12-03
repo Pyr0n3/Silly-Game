@@ -3397,6 +3397,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionDistance: 3
+  pickupDistance: 100
+  initialHoldDelay: 0.5
+  continuousSpawnInterval: 0.01
   inventoryManager: {fileID: 752917392}
 --- !u!1001 &103198100
 PrefabInstance:
@@ -14504,7 +14507,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1614084814}
-  distanceFromPlayer: 15
+  distanceBehindPlayer: 15
+  heightAbovePlayer: 5
   mouseSensitivity: 1500
   verticalClampMin: -80
   verticalClampMax: 80
@@ -14518,6 +14522,7 @@ MonoBehaviour:
   quitButton: {fileID: 1391046687}
   optionsButton: {fileID: 1688134552}
   backButton: {fileID: 854227899}
+  switchCameraButton: {fileID: 1850767356}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83644,7 +83649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1866461199
 MonoBehaviour:
   m_ObjectHideFlags: 0
