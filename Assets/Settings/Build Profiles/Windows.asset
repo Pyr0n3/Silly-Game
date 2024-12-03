@@ -19,8 +19,6 @@ MonoBehaviour:
     rid: 9053476705582186554
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/Scenes/Silly Game.unity
-  - m_enabled: 1
     m_path: Assets/Scenes/Level 1.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Level 2.unity
