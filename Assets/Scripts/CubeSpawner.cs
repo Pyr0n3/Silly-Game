@@ -29,9 +29,9 @@ public class CubeSpawner : MonoBehaviour
     private List<GameObject> spawnedCubes = new List<GameObject>();
     private int maxCubes = 1000;
 
-    private int godPity = 250;
-    private int purplePity = 40;
-    private int cyanPity = 100; // Cyan cube pity value
+    private int godPity = 250000;
+    private int purplePity = 4000;
+    private int cyanPity = 10000; // Cyan cube pity value
 
     private ScreenShake screenShake;
 
