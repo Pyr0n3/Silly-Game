@@ -77,7 +77,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if (cubeHit.collider.CompareTag("Cube"))
                 {
-                    string cubeType = cubeHit.collider.gameObject.name.Replace("CubePrefab", "").Trim();
+                    string cubeType = cubeHit.collider.gameObject.name.Replace("CubePrefab(Clone)", "").Trim();
                     bool added = inventoryManager.AddToInventory(cubeType);
 
                     if (added)

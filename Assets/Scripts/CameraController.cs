@@ -3,13 +3,12 @@ using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform player; // The player's transform to follow
-    public float distanceFromPlayer = 5f; // Distance from the player (horizontal)
+    public Transform player; // The player to look at
+    public float distanceFromLookPoint = 10f; // Distance behind where the camera looks
     public float mouseSensitivity = 100f;
     public float verticalClampMin = -30f;
     public float verticalClampMax = 60f;
     public float smoothSpeed = 10f;
-    public LayerMask groundMask;
 
     public GameObject pausedCanvas;
     public GameObject optionsCanvas;
@@ -24,8 +23,6 @@ public class CameraController : MonoBehaviour
     private bool isCameraActive = false;
     private bool isPaused = false;
     private bool isOptionsMenuOpen = false;
-
-    private Vector3 offset;
 
     void Start()
     {
@@ -51,14 +48,10 @@ public class CameraController : MonoBehaviour
     {
         if (player != null)
         {
-            // Calculate the camera's position relative to the player (distanceFromPlayer behind the player)
-            offset = new Vector3(0, 5f, -distanceFromPlayer); // You can adjust the height (5f) as needed.
-            Vector3 desiredPosition = player.position + offset;
+            // Calculate the look point (player position, slightly above)
+            Vector3 lookPoint = player.position + Vector3.up * 2f;
 
-            // Update the camera position smoothly
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-
-            // Rotate camera based on mouse input (only when RMB is held)
+            // Rotate camera only when RMB is held
             if (isCameraActive && Input.GetMouseButton(1) && !isPaused && !isOptionsMenuOpen && !inventoryUI.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -71,10 +64,6 @@ public class CameraController : MonoBehaviour
                 yaw += mouseX;
                 pitch -= mouseY;
                 pitch = Mathf.Clamp(pitch, verticalClampMin, verticalClampMax);
-
-                // Apply the rotation based on the mouse input
-                Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0f);
-                transform.rotation = targetRotation;
             }
             else
             {
@@ -82,8 +71,17 @@ public class CameraController : MonoBehaviour
                 Cursor.visible = true;
             }
 
-            // Always make the camera look at the player (slightly above their position)
-            transform.LookAt(player.position + Vector3.up * 2f); // Looking slightly above the player
+            // Calculate the camera's rotation based on yaw and pitch
+            Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
+
+            // Calculate the camera's position: 10 units behind the look point in the opposite direction of the rotation
+            Vector3 cameraPosition = lookPoint - rotation * Vector3.forward * distanceFromLookPoint;
+
+            // Smoothly move the camera to the new position
+            transform.position = Vector3.Lerp(transform.position, cameraPosition, smoothSpeed * Time.deltaTime);
+
+            // Make the camera look at the look point
+            transform.LookAt(lookPoint);
         }
     }
 

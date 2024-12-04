@@ -10,35 +10,45 @@ public class InventorySpawner : MonoBehaviour
     public void SpawnCubeFromInventory(int slotIndex)
     {
         string cubeType = inventoryManager.GetItemInSlot(slotIndex);
-        if (cubeType == null) return;
+        if (cubeType == null)
+        {
+            Debug.Log($"No cube in slot {slotIndex} to spawn!");
+            return;
+        }
 
         GameObject cubePrefab = cubeType switch
         {
-            "Red" => redCubePrefab,
-            "Green" => greenCubePrefab,
-            "Blue" => blueCubePrefab,
-            "Gold" => goldCubePrefab,
-            "Purple" => purpleCubePrefab,
-            "Cyan" => cyanCubePrefab,
-            "God" => godCubePrefab,
+            "red" => redCubePrefab,
+            "green" => greenCubePrefab,
+            "blue" => blueCubePrefab,
+            "gold" => goldCubePrefab,
+            "purple" => purpleCubePrefab,
+            "cyan" => cyanCubePrefab,
+            "god" => godCubePrefab,
             _ => null,
         };
 
+        if (cubePrefab == null)
+        {
+            Debug.LogError($"Cube prefab for type {cubeType} not found!");
+            return;
+        }
+
         Vector3 spawnOffset = cubeType switch
         {
-            "God" => new Vector3(0, 108f, 200f),
-            "Cyan" => new Vector3(0, 18f, 100f),
-            "Purple" => new Vector3(0, 8f, 50f),
-            "Gold" => new Vector3(0, 2f, 25f),
+            "god" => new Vector3(0, 108f, 200f),
+            "cyan" => new Vector3(0, 18f, 100f),
+            "purple" => new Vector3(0, 8f, 50f),
+            "gold" => new Vector3(0, 2f, 25f),
             _ => new Vector3(0, 1.5f, 5f),
         };
 
-        if (cubePrefab != null)
-        {
-            Instantiate(cubePrefab, transform.position + transform.forward * spawnOffset.z + Vector3.up * spawnOffset.y, Quaternion.identity);
-            inventoryManager.RemoveFromInventory(slotIndex);
-        }
+        Instantiate(cubePrefab, transform.position + transform.forward * spawnOffset.z + Vector3.up * spawnOffset.y, Quaternion.identity);
+        Debug.Log($"Spawned {cubeType} cube from slot {slotIndex}!");
+
+        inventoryManager.RemoveFromInventory(slotIndex);
     }
+
 
     public void DeleteCubeFromInventory(int slotIndex)
     {

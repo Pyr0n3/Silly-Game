@@ -3,25 +3,13 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    public Image[] inventorySlots; // Array of inventory slot images
-    public Sprite redCubeInventory, greenCubeInventory, blueCubeInventory, goldCubeInventory, purpleCubeInventory, cyanCubeInventory, godCubeInventory;
-    public GameObject inventoryUI;
+    public Image[] inventorySlots; // Array of inventory slot UI images
+    public Sprite redCubeInventory, greenCubeInventory, blueCubeInventory;
+    public Sprite goldCubeInventory, purpleCubeInventory, cyanCubeInventory, godCubeInventory;
 
-    private string[] inventoryItems = new string[3]; // Stores the type of cube in each slot
+    //public Image cube1;
 
-    void Start()
-    {
-        inventoryUI.SetActive(false); // Hide inventory at start
-    }
-
-    void Update()
-    {
-        // Toggle inventory UI with Tab
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
-        }
-    }
+    private string[] inventoryItems = new string[3]; // Tracks the type of block in each inventory slot
 
     public bool AddToInventory(string cubeType)
     {
@@ -30,23 +18,27 @@ public class InventoryManager : MonoBehaviour
             if (inventoryItems[i] == null)
             {
                 inventoryItems[i] = cubeType;
-                inventorySlots[i].sprite = GetInventorySprite(cubeType);
-                inventorySlots[i].enabled = true;
+                UpdateSlotVisual(i, cubeType); // Update the inventory slot visuals
                 return true;
             }
         }
+        Debug.Log("Inventory is full!");
         return false; // Inventory full
     }
 
     public void RemoveFromInventory(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= inventoryItems.Length || inventoryItems[slotIndex] == null)
+        {
+            Debug.Log($"Cannot delete: Slot {slotIndex} is invalid or empty.");
             return;
+        }
 
-        inventoryItems[slotIndex] = null;
-        inventorySlots[slotIndex].sprite = null;
-        inventorySlots[slotIndex].enabled = false;
+        Debug.Log($"Removing cube from slot {slotIndex}.");
+        inventoryItems[slotIndex] = null; // Clear the inventory slot
+        ClearSlotVisual(slotIndex); // Clear the slot visuals
     }
+
 
     public string GetItemInSlot(int slotIndex)
     {
@@ -55,18 +47,39 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
 
+    private void UpdateSlotVisual(int slotIndex, string cubeType)
+    {
+        Sprite sprite = GetInventorySprite(cubeType);
+        if (sprite != null)
+        {
+            inventorySlots[slotIndex].sprite = sprite;
+            inventorySlots[slotIndex].enabled = true;
+        }
+    }
+
+    private void ClearSlotVisual(int slotIndex)
+    {
+        inventorySlots[slotIndex].sprite = null;
+        inventorySlots[slotIndex].enabled = false;
+    }
+
     private Sprite GetInventorySprite(string cubeType)
     {
         return cubeType switch
         {
-            "Red" => redCubeInventory,
-            "Green" => greenCubeInventory,
-            "Blue" => blueCubeInventory,
-            "Gold" => goldCubeInventory,
-            "Purple" => purpleCubeInventory,
-            "Cyan" => cyanCubeInventory,
-            "God" => godCubeInventory,
+            "red" => redCubeInventory,
+            "green" => greenCubeInventory,
+            "blue" => blueCubeInventory,
+            "gold" => goldCubeInventory,
+            "purple" => purpleCubeInventory,
+            "cyan" => cyanCubeInventory,
+            "god" => godCubeInventory,
             _ => null,
         };
+    }
+
+    private void Start()
+    {
+        //cube1.sprite = redCubeInventory;
     }
 }
