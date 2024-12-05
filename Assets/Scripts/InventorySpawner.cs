@@ -49,7 +49,6 @@ public class InventorySpawner : MonoBehaviour
         inventoryManager.RemoveFromInventory(slotIndex);
     }
 
-
     public void DeleteCubeFromInventory(int slotIndex)
     {
         inventoryManager.RemoveFromInventory(slotIndex);
