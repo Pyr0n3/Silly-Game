@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 50918f44a0a826547b842611a8147366, type: 3}
       propertyPath: m_Name
-      value: godCubePrefab 1
+      value: godCubePrefab
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 50918f44a0a826547b842611a8147366, type: 3}
       propertyPath: m_TagString
@@ -242,7 +242,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 10ffc2465325c0544aacc2d15ef37be3, type: 3}
   m_Resource: {fileID: 8300000, guid: 10ffc2465325c0544aacc2d15ef37be3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

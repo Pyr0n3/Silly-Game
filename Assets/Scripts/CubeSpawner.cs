@@ -18,16 +18,16 @@ public class CubeSpawner : MonoBehaviour
     public AudioSource godCubeBuildupAudio;
     public AudioSource cyanCubeBuildupAudio; // Added cyan buildup audio reference
 
-    private float godProbability = 0.000001f;
-    private float cyanProbability = 0.00001f; // 1 in 100,000 chance for cyan cube
-    private float purpleProbability = 0.0001f;
-    private float goldProbability = 0.001f;
-    private float blueProbability = 0.125f;
-    private float greenProbability = 0.25f;
-    private float redProbability = 0.5f; 
+    private float godProbability = 0.99999f;
+    private float cyanProbability = 0.000000000001f; // 1 in 100,000 chance for cyan cube
+    private float purpleProbability = 0.000000000001f;
+    private float goldProbability = 0.00000000001f;
+    private float blueProbability = 0.000000001000000025f;
+    private float greenProbability = 0.0000000205f;
+    private float redProbability = 0.000000005f; 
 
     private List<GameObject> spawnedCubes = new List<GameObject>();
-    private int maxCubes = 1000;
+    private int maxCubes = 100000;
 
     private int godPity = 250000;
     private int purplePity = 4000;
@@ -108,7 +108,7 @@ public class CubeSpawner : MonoBehaviour
             }
         }
 
-        godProbability = godPity == 0 ? 1f : 0.000001f;
+        godProbability = godPity == 0 ? 1f : 01.000001f;
         purpleProbability = purplePity == 0 ? 1f : 0.0001f;
         UpdatePityText();
 

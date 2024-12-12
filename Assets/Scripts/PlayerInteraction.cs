@@ -98,7 +98,7 @@ public class PlayerInteraction : MonoBehaviour
         while (true)
         {
             // Spawn multiple cubes during continuous spawn
-            currentSpawner.SpawnMultipleCubes(5);
+            currentSpawner.SpawnMultipleCubes(10);
             yield return new WaitForSeconds(continuousSpawnInterval);
         }
     }
