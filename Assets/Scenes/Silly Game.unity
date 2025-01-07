@@ -2773,7 +2773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionDistance: 3
-  pickupDistance: 100
+  pickupDistance: 1000
   initialHoldDelay: 0.5
   continuousSpawnInterval: 0.01
   inventoryManager: {fileID: 752917392}
@@ -50793,7 +50793,7 @@ MonoBehaviour:
   purpleCubePrefab: {fileID: 8586111760542062172, guid: ab1c095673019cf4682cab0a58976ccb, type: 3}
   godCubePrefab: {fileID: 1142001380006494615, guid: 0f733661eab1e874fb0bde4b2f7ca363, type: 3}
   cyanCubePrefab: {fileID: 2725471314345620341, guid: f68d5fe5a4ba14943afca9c51298060c, type: 3}
-  Trophy: {fileID: 0}
+  Trophy: {fileID: 1340794534}
   pityText: {fileID: 575977481}
   godCubeBuildupAudio: {fileID: 760833812}
   cyanCubeBuildupAudio: {fileID: 425624345}

@@ -10,9 +10,10 @@ public class InventoryManager : MonoBehaviour
     private string[] inventoryItems = new string[10]; // Tracks the type of block in each inventory slot
     private GameManager gameManager; // Reference to GameManager to save the inventory
 
+
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>(); // Find the GameManager in the scene
+        gameManager = FindObjectOfType<GameManager>(); //(Ignore the green) Find the GameManager in the scene
     }
 
     // Get the current inventory items

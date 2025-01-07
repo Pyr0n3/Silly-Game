@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerInteraction : MonoBehaviour
 {
     public float interactionDistance = 10f;  // Distance to interact with CubeSpawner
-    public float pickupDistance = 100f;      // Distance to pick up cubes
+    public float pickupDistance = 1000f;      // Distance to pick up cubes
     public float initialHoldDelay = 0.5f;    // Delay before starting continuous spawn
     public float continuousSpawnInterval = 0.01f; // Interval for continuous spawn
     public InventoryManager inventoryManager; // Reference to the inventory manager
@@ -98,7 +98,7 @@ public class PlayerInteraction : MonoBehaviour
         while (true)
         {
             // Spawn multiple cubes during continuous spawn
-            currentSpawner.SpawnMultipleCubes(10);
+            currentSpawner.SpawnMultipleCubes(5);
             yield return new WaitForSeconds(continuousSpawnInterval);
         }
     }
