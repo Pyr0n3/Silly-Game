@@ -1,0 +1,85 @@
+2025-01-24 12:28:53.8709 [INFO; Root]  KinematicSoup Technologies Inc.
+2025-01-24 12:28:53.8761 [INFO; Root]  Scene Fusion Server 2.0.3asl
+2025-01-24 12:28:53.9042 [DEBUG; Root]  Loading Asset Scripts
+2025-01-24 12:28:53.9055 [DEBUG; Root]  Loading Room Configs
+2025-01-24 12:28:53.9071 [DEBUG; Root]  Loading entity prefabs
+2025-01-24 12:28:53.9071 [DEBUG; Root]  Loading entity instances
+2025-01-24 12:28:53.9075 [DEBUG; Root]  Initializing scripts
+2025-01-24 12:28:53.9162 [INFO; Root]  Loading config.json
+2025-01-24 12:28:53.9163 [INFO; Root]  ProjectId: 1
+2025-01-24 12:28:53.9163 [INFO; Root]  Tier: SF Unity LAN
+2025-01-24 12:28:53.9164 [INFO; Root]  Terrain Editing: True
+2025-01-24 12:28:53.9164 [INFO; Root]  Object Limit: Unlimited
+2025-01-24 12:28:53.9671 [DEBUG; Root]  Room setup complete
+2025-01-24 12:28:53.9675 [INFO;  .⁋]  Starting room 0
+2025-01-24 12:28:53.9676 [INFO; Root]  Sending client updates every 6 frames
+2025-01-24 12:28:53.9678 [INFO; Root]  Setting player limit to 2
+2025-01-24 12:28:53.9678 [INFO; Root]  Opening TCP port 8000
+2025-01-24 12:28:55.8012 [INFO; Root]  Client(id = 1, address = 127.0.0.1:64269) connected
+2025-01-24 12:28:55.8016 [DEBUG; Root]  Client(id = 1, address = 127.0.0.1:64269) model validated
+2025-01-24 12:28:55.8148 [DEBUG; Root]  Client(id = 1, address = 127.0.0.1:64269) authenticated
+2025-01-24 12:28:55.8341 [INFO; KS.SceneFusion2.Server.srAuthenticationManager]  Connection [account = Jacob Barry, address = 127.0.0.1]
+2025-01-24 12:28:55.8801 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 80 B (1), SceneSubscriptions: 41 B (1), String Table: 39 B
+2025-01-24 12:28:55.8814 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 105 B (2), String Table: 48 B, SceneSubscriptions: 41 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:55.8818 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 362 B (3), Avatar: 174 B (1), String Table: 131 B, SceneSubscriptions: 41 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2151 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 553 B (4), String Table: 252 B, Avatar: 174 B (1), SceneSubscriptions: 57 B (1), AssetPath: 54 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2151 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 649 B (5), String Table: 294 B, Avatar: 174 B (1), AssetPath: 108 B (2), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2152 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 768 B (6), String Table: 359 B, Avatar: 174 B (1), AssetPath: 162 B (3), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2152 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 936 B (7), String Table: 473 B, AssetPath: 216 B (4), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2153 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 1.05 kB (8), String Table: 536 B, AssetPath: 270 B (5), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2156 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 4.61 kB (9), Asset: 2.51 kB (1), String Table: 1.58 kB, AssetPath: 270 B (5), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2156 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 4.69 kB (10), Asset: 2.51 kB (1), String Table: 1.61 kB, AssetPath: 324 B (6), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2157 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 7.26 kB (11), Asset: 5.01 kB (2), String Table: 1.68 kB, AssetPath: 324 B (6), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2157 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 7.39 kB (12), Asset: 5.01 kB (2), String Table: 1.76 kB, AssetPath: 378 B (7), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2158 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 7.59 kB (13), Asset: 5.01 kB (2), String Table: 1.87 kB, AssetPath: 456 B (8), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2159 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 9.58 kB (14), Asset: 6.55 kB (3), String Table: 2.33 kB, AssetPath: 456 B (8), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2159 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 9.64 kB (15), Asset: 6.55 kB (3), String Table: 2.35 kB, AssetPath: 496 B (9), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2159 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 9.7 kB (16), Asset: 6.55 kB (3), String Table: 2.36 kB, AssetPath: 550 B (10), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2160 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 12.3 kB (17), Asset: 9.05 kB (4), String Table: 2.42 kB, AssetPath: 550 B (10), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2161 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 14.9 kB (18), Asset: 11.6 kB (5), String Table: 2.52 kB, AssetPath: 550 B (10), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2163 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 17.4 kB (19), Asset: 14.1 kB (6), String Table: 2.59 kB, AssetPath: 550 B (10), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2163 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 17.5 kB (20), Asset: 14.1 kB (6), String Table: 2.61 kB, AssetPath: 604 B (11), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2164 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 20.1 kB (21), Asset: 16.5 kB (7), String Table: 2.67 kB, AssetPath: 604 B (11), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2165 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 22.7 kB (22), Asset: 19.1 kB (8), String Table: 2.75 kB, AssetPath: 604 B (11), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2166 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 25.2 kB (23), Asset: 21.6 kB (9), String Table: 2.81 kB, AssetPath: 604 B (11), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2167 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 25.3 kB (24), Asset: 21.6 kB (9), String Table: 2.87 kB, AssetPath: 658 B (12), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2168 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 27.9 kB (25), Asset: 24.1 kB (10), String Table: 2.93 kB, AssetPath: 658 B (12), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2168 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 28.1 kB (26), Asset: 24.1 kB (10), String Table: 3.05 kB, AssetPath: 698 B (13), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2168 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 28.2 kB (27), Asset: 24.1 kB (10), String Table: 3.09 kB, AssetPath: 752 B (14), Avatar: 174 B (1), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:28:58.2194 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 575 object(s).
+Total: 70 kB (602), Component: 27.6 kB (440), Asset: 24.1 kB (10), GameObject: 8.23 kB (130), String Table: 7.73 kB, LightmapSettings: 782 B (1), AssetPath: 752 B (14), RenderSettings: 466 B (1), Avatar: 174 B (1), OcclusionSettings: 67 B (1), SceneSubscriptions: 57 B (1), Scene: 24 B (1), SceneLock: 16 B (1), Hierarchy: 16 B (1)
+2025-01-24 12:29:17.8219 [INFO; Root]  Client(id = 1, address = 127.0.0.1:64269) disconnected: 2-End of file
+2025-01-24 12:29:17.8391 [INFO; KS.SceneFusion2.Server.srAuthenticationManager]  Disconnection [account = Jacob Barry, address = 127.0.0.1]
+2025-01-24 12:29:17.8438 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Deleted 2 object(s).
+Total: 69.8 kB (600), Component: 27.6 kB (440), Asset: 24.1 kB (10), GameObject: 8.23 kB (130), String Table: 7.73 kB, LightmapSettings: 782 B (1), AssetPath: 752 B (14), RenderSettings: 466 B (1), OcclusionSettings: 67 B (1), Scene: 24 B (1), SceneLock: 16 B (1), Hierarchy: 16 B (1)
+2025-01-24 12:29:17.8447 [INFO; KS.SceneFusion2.Server.srAuthenticationManager]  Shutting down because no users are connected.
+2025-01-24 12:29:17.8901 [INFO;  .⁋]  Stopping room 0
+2025-01-24 12:29:17.8911 [DEBUG; KS.SceneFusion2.Server.srAnalytics]  Sending analytics data...
+2025-01-24 12:29:18.2013 [DEBUG; KS.SceneFusion2.Server.srAnalytics]  Analytics event recorded succesfully.

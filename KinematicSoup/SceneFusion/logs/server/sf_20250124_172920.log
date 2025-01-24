@@ -1,0 +1,44 @@
+2025-01-24 12:29:21.0043 [INFO; Root]  KinematicSoup Technologies Inc.
+2025-01-24 12:29:21.0087 [INFO; Root]  Scene Fusion Server 2.0.3asl
+2025-01-24 12:29:21.0330 [DEBUG; Root]  Loading Asset Scripts
+2025-01-24 12:29:21.0340 [DEBUG; Root]  Loading Room Configs
+2025-01-24 12:29:21.0356 [DEBUG; Root]  Loading entity prefabs
+2025-01-24 12:29:21.0357 [DEBUG; Root]  Loading entity instances
+2025-01-24 12:29:21.0360 [DEBUG; Root]  Initializing scripts
+2025-01-24 12:29:21.0438 [INFO; Root]  Loading config.json
+2025-01-24 12:29:21.0439 [INFO; Root]  ProjectId: 1
+2025-01-24 12:29:21.0439 [INFO; Root]  Tier: SF Unity LAN
+2025-01-24 12:29:21.0440 [INFO; Root]  Terrain Editing: True
+2025-01-24 12:29:21.0440 [INFO; Root]  Object Limit: Unlimited
+2025-01-24 12:29:21.0907 [DEBUG; Root]  Room setup complete
+2025-01-24 12:29:21.0912 [INFO;  .⁋]  Starting room 0
+2025-01-24 12:29:21.0912 [INFO; Root]  Sending client updates every 6 frames
+2025-01-24 12:29:21.0913 [INFO; Root]  Setting player limit to 2
+2025-01-24 12:29:21.0914 [INFO; Root]  Opening TCP port 8000
+2025-01-24 12:29:22.9372 [INFO; Root]  Client(id = 1, address = 127.0.0.1:64279) connected
+2025-01-24 12:29:22.9375 [DEBUG; Root]  Client(id = 1, address = 127.0.0.1:64279) model validated
+2025-01-24 12:29:22.9503 [DEBUG; Root]  Client(id = 1, address = 127.0.0.1:64279) authenticated
+2025-01-24 12:29:22.9542 [INFO; KS.SceneFusion2.Server.srAuthenticationManager]  Connection [account = Jacob Barry, address = 127.0.0.1]
+2025-01-24 12:29:22.9994 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 80 B (1), SceneSubscriptions: 41 B (1), String Table: 39 B
+2025-01-24 12:29:23.0006 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 105 B (2), String Table: 48 B, SceneSubscriptions: 41 B (1), SceneLock: 16 B (1)
+2025-01-24 12:29:23.0011 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 362 B (3), Avatar: 174 B (1), String Table: 131 B, SceneSubscriptions: 41 B (1), SceneLock: 16 B (1)
+2025-01-24 12:29:23.1336 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 553 B (4), String Table: 252 B, Avatar: 174 B (1), SceneSubscriptions: 57 B (1), AssetPath: 54 B (1), SceneLock: 16 B (1)
+2025-01-24 12:29:23.1336 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 649 B (5), String Table: 294 B, Avatar: 174 B (1), AssetPath: 108 B (2), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:29:23.1337 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 1 object(s).
+Total: 768 B (6), String Table: 359 B, Avatar: 174 B (1), AssetPath: 162 B (3), SceneSubscriptions: 57 B (1), SceneLock: 16 B (1)
+2025-01-24 12:29:23.1349 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Created 13 object(s).
+Total: 4.34 kB (19), String Table: 2.16 kB, LightmapSettings: 782 B (1), RenderSettings: 466 B (1), Component: 311 B (6), Avatar: 174 B (1), AssetPath: 162 B (3), GameObject: 114 B (2), OcclusionSettings: 67 B (1), SceneSubscriptions: 57 B (1), Scene: 24 B (1), SceneLock: 16 B (1), Hierarchy: 16 B (1)
+2025-01-24 12:29:34.2084 [INFO; Root]  Client(id = 1, address = 127.0.0.1:64279) disconnected: 2-End of file
+2025-01-24 12:29:34.2190 [INFO; KS.SceneFusion2.Server.srAuthenticationManager]  Disconnection [account = Jacob Barry, address = 127.0.0.1]
+2025-01-24 12:29:34.2228 [DEBUG; KS.SceneFusion2.Server.srObjectManager]  Deleted 2 object(s).
+Total: 4.11 kB (17), String Table: 2.16 kB, LightmapSettings: 782 B (1), RenderSettings: 466 B (1), Component: 311 B (6), AssetPath: 162 B (3), GameObject: 114 B (2), OcclusionSettings: 67 B (1), Scene: 24 B (1), SceneLock: 16 B (1), Hierarchy: 16 B (1)
+2025-01-24 12:29:34.2237 [INFO; KS.SceneFusion2.Server.srAuthenticationManager]  Shutting down because no users are connected.
+2025-01-24 12:29:34.2706 [INFO;  .⁋]  Stopping room 0
+2025-01-24 12:29:34.2714 [DEBUG; KS.SceneFusion2.Server.srAnalytics]  Sending analytics data...
+2025-01-24 12:29:34.5679 [DEBUG; KS.SceneFusion2.Server.srAnalytics]  Analytics event recorded succesfully.
+2025-01-24 12:29:37.7497 [INFO; Root]  Closing TCP port 8000
