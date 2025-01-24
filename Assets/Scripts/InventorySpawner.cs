@@ -9,6 +9,8 @@ public class InventorySpawner : MonoBehaviour
 
     public void SpawnCubeFromInventory(int slotIndex)
     {
+        Debug.Log($"Trying to spawn from slot {slotIndex}");
+
         string cubeType = inventoryManager.GetItemInSlot(slotIndex);
         if (cubeType == null)
         {
@@ -51,6 +53,7 @@ public class InventorySpawner : MonoBehaviour
 
     public void DeleteCubeFromInventory(int slotIndex)
     {
+        Debug.Log($"Deleting item from slot {slotIndex}");
         inventoryManager.RemoveFromInventory(slotIndex);
     }
 }

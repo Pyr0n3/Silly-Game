@@ -10,80 +10,79 @@ public class InventoryManager : MonoBehaviour
     private string[] inventoryItems = new string[10]; // Tracks the type of block in each inventory slot
     private GameManager gameManager; // Reference to GameManager to save the inventory
 
-
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>(); //(Ignore the green) Find the GameManager in the scene
+        gameManager = FindObjectOfType<GameManager>(); // Find the GameManager in the scene
+        Debug.Log("InventoryManager initialized.");
     }
 
-    // Get the current inventory items
     public string[] GetInventory()
     {
         return inventoryItems;
     }
 
-    // Get the item in a specific inventory slot
     public string GetItemInSlot(int slotIndex)
     {
         if (slotIndex >= 0 && slotIndex < inventoryItems.Length)
+        {
+            Debug.Log($"Retrieved item from slot {slotIndex}: {inventoryItems[slotIndex]}");
             return inventoryItems[slotIndex];
+        }
+        Debug.Log($"Invalid slot index: {slotIndex}");
         return null; // Return null if the slot index is invalid or empty
     }
 
-    // Sets the loaded inventory data and updates the UI
     public void SetInventory(string[] loadedItems)
     {
         inventoryItems = loadedItems;
 
-        // Update the visuals of the inventory slots after loading
         for (int i = 0; i < inventoryItems.Length; i++)
         {
             if (string.IsNullOrEmpty(inventoryItems[i]))
             {
                 inventoryItems[i] = null;
-                ClearSlotVisual(i); // Clear the slot visuals (make it empty)
+                ClearSlotVisual(i);
+                Debug.Log($"Slot {i} cleared during inventory load.");
             }
             else
             {
-                UpdateSlotVisual(i, inventoryItems[i]); // Update the UI slot with the correct item
+                UpdateSlotVisual(i, inventoryItems[i]);
+                Debug.Log($"Slot {i} set to {inventoryItems[i]} during inventory load.");
             }
         }
     }
 
-    // Adds an item to the inventory and triggers save through GameManager
-    // Adds an item to the inventory and triggers save through GameManager
     public bool AddToInventory(string cubeType)
     {
         for (int i = 0; i < inventoryItems.Length; i++) // Loop through all 10 slots
         {
             if (inventoryItems[i] == null) // Find the first empty slot
             {
-                inventoryItems[i] = cubeType; // Add the item to that slot
-                UpdateSlotVisual(i, cubeType); // Update the inventory slot visuals
-                gameManager.SaveInventory(inventoryItems); // Save the inventory whenever it changes
+                inventoryItems[i] = cubeType;
+                UpdateSlotVisual(i, cubeType);
+                gameManager.SaveInventory(inventoryItems);
+                Debug.Log($"Added {cubeType} to slot {i}");
                 return true; // Successfully added
             }
         }
-        Debug.Log("Inventory is full!"); // If no slots are empty, inventory is full
+        Debug.Log("Inventory is full!");
         return false; // Inventory full
     }
 
-
-    // Removes an item from the inventory and triggers save through GameManager
     public void RemoveFromInventory(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= inventoryItems.Length || inventoryItems[slotIndex] == null)
         {
-            Debug.Log("Invalid slot or empty slot.");
+            Debug.Log($"Cannot remove item: Invalid or empty slot at index {slotIndex}");
             return;
         }
 
+        Debug.Log($"Removed {inventoryItems[slotIndex]} from slot {slotIndex}");
         inventoryItems[slotIndex] = null; // Clear the inventory slot
-        ClearSlotVisual(slotIndex); // Clear the slot visuals
-        gameManager.SaveInventory(inventoryItems); // Save the inventory whenever it changes
+        ClearSlotVisual(slotIndex);
+        gameManager.SaveInventory(inventoryItems);
     }
 
-    // Updates the UI to reflect the correct item in a slot
     private void UpdateSlotVisual(int slotIndex, string cubeType)
     {
         Sprite sprite = GetInventorySprite(cubeType);
@@ -91,17 +90,21 @@ public class InventoryManager : MonoBehaviour
         {
             inventorySlots[slotIndex].sprite = sprite;
             inventorySlots[slotIndex].enabled = true;
+            Debug.Log($"Slot {slotIndex} updated with sprite for {cubeType}");
+        }
+        else
+        {
+            Debug.LogError($"Sprite for {cubeType} not found for slot {slotIndex}");
         }
     }
 
-    // Clears the visuals of a given slot
     private void ClearSlotVisual(int slotIndex)
     {
         inventorySlots[slotIndex].sprite = null;
         inventorySlots[slotIndex].enabled = false;
+        Debug.Log($"Cleared visuals for slot {slotIndex}");
     }
 
-    // Returns the correct sprite based on the cube type
     private Sprite GetInventorySprite(string cubeType)
     {
         return cubeType switch
