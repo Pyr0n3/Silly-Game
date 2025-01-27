@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class CubeSpawner : MonoBehaviour
 {
+    public bool secretOn;
+
     public GameObject redCubePrefab;
     public GameObject greenCubePrefab;
     public GameObject blueCubePrefab;
@@ -74,7 +77,7 @@ public class CubeSpawner : MonoBehaviour
 
         cyanPity--; // Decrease cyan pity
 
-        if (cyanPity < 0) // If cyan pity reaches 0, force a cyan cube spawn
+        if (cyanPity == 0) // If cyan pity reaches 0, force a cyan cube spawn
         {
             StartCoroutine(PlayCyanCubeSpawn());
             cyanPity = 45000; // Reset cyan pity after spawning
@@ -84,6 +87,10 @@ public class CubeSpawner : MonoBehaviour
         if (randomValue < godProbability)
         {
             StartCoroutine(PlayGodCubeSpawn());
+        }
+        else if (randomValue < cyanProbability)
+        {
+            StartCoroutine(PlayCyanCubeSpawn()); // Start cyan cube spawn sequence
         }
         else
         {
@@ -102,15 +109,23 @@ public class CubeSpawner : MonoBehaviour
             {
                 screenShake.TriggerShake(1f, 1f); // Shake for purple cube
             }
-            else if (cubeToSpawn == cyanCubePrefab && screenShake != null)
-            {
-                StartCoroutine(PlayCyanCubeSpawn()); // Start cyan cube spawn sequence
-            }
+
         }
 
-        godProbability = godPity == 0 ? 1f : 0.000001f;
-        purpleProbability = purplePity == 0 ? 1f : 0.0001f;
-        UpdatePityText();
+
+
+        if (secretOn == true)
+        {
+            godProbability = godPity == 0 ? 1f : 0.000005f;
+            purpleProbability = purplePity == 0 ? 1f : 0.0005f;
+            UpdatePityText();
+        }
+        else
+        {
+            godProbability = godPity == 0 ? 1f : 0.000001f;
+            purpleProbability = purplePity == 0 ? 1f : 0.0001f;
+            UpdatePityText();
+        }
 
         if (spawnedCubes.Count > maxCubes)
         {
@@ -119,7 +134,7 @@ public class CubeSpawner : MonoBehaviour
             Destroy(oldestCube);
         }
     }
-
+     
     public void SpawnMultipleCubes(int numberOfCubes)
     {
         // Spawn a random number of cubes from 1 to 10
@@ -130,40 +145,58 @@ public class CubeSpawner : MonoBehaviour
     }
 
     private GameObject ChooseCubeType(float randomValue)
+{
+    // Adjust probabilities based on the secret buff
+    if (secretOn)
     {
-        if (randomValue < godProbability)
-        {
-            Debug.Log("god spawned");
-            return godCubePrefab;
-            
-        }
-        else if (randomValue < cyanProbability + godProbability)
-        {
-            Debug.Log("Cyan cube spawned!");
-            return cyanCubePrefab;
-        }
-        else if (randomValue < purpleProbability + cyanProbability + godProbability)
-        {
-            Debug.Log("purple spawned");
-            return purpleCubePrefab;
-        }
-        else if (randomValue < goldProbability + purpleProbability + cyanProbability + godProbability)
-        {
-            return goldCubePrefab;
-        }
-        else if (randomValue < blueProbability + goldProbability + purpleProbability + cyanProbability + godProbability)
-        {
-            return blueCubePrefab;
-        }
-        else if (randomValue < greenProbability + blueProbability + goldProbability + purpleProbability + cyanProbability + godProbability)
-        {
-            return greenCubePrefab;
-        }
-        else
-        {
-            return redCubePrefab;
-        }
+        godProbability = 0.000005f;
+        cyanProbability = 0.00005f;
+        purpleProbability = 0.0005f;
+        goldProbability = 0.001f;
+        blueProbability = 0.125f;
+        greenProbability = 1f;
+        redProbability = 0f; // Red cube becomes unobtainable
     }
+    else
+    {
+        godProbability = 0.000001f;
+        cyanProbability = 0.00001f;
+        purpleProbability = 0.0001f;
+        goldProbability = 0.001f;
+        blueProbability = 0.125f;
+        greenProbability = 0.25f;
+        redProbability = 1f;
+    }
+
+    // Normalize probabilities for comparison
+    float cumulativeProbability = 0f;
+
+    cumulativeProbability += godProbability;
+    if (randomValue < cumulativeProbability) return godCubePrefab;
+
+    cumulativeProbability += cyanProbability;
+    if (randomValue < cumulativeProbability) return cyanCubePrefab;
+
+    cumulativeProbability += purpleProbability;
+    if (randomValue < cumulativeProbability) return purpleCubePrefab;
+
+    cumulativeProbability += goldProbability;
+    if (randomValue < cumulativeProbability) return goldCubePrefab;
+
+    cumulativeProbability += blueProbability;
+    if (randomValue < cumulativeProbability) return blueCubePrefab;
+
+    cumulativeProbability += greenProbability;
+    if (randomValue < cumulativeProbability) return greenCubePrefab;
+
+    cumulativeProbability += redProbability;
+    if (randomValue < cumulativeProbability) return redCubePrefab;
+
+    // If no match, return null (this shouldn't happen if probabilities sum to 1)
+    Debug.LogWarning("Random value did not match any probability range!");
+    return null;
+}
+
 
     private IEnumerator PlayCyanCubeSpawn()
     {
