@@ -1,3 +1,0 @@
-2025-01-24 12:25:03.6541 [WARNING] Reference to missing object found on Placeholder 1 (Material). Path: m_SavedProperties.m_TexEnvs.Array.data[0].second.m_Texture. Missing objects cannot be synced and the reference will be set to null for other users.
-2025-01-24 12:25:03.6709 [WARNING] Reference to missing object found on Level transition (ParticleSystem). Path: UVModule.sprites.Array.data[0].sprite. Missing objects cannot be synced and the reference will be set to null for other users.
-2025-01-24 12:25:03.6847 [WARNING] Reference to missing object found on Placeholder 2 (Material). Path: m_SavedProperties.m_TexEnvs.Array.data[0].second.m_Texture. Missing objects cannot be synced and the reference will be set to null for other users.

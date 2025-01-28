@@ -1,7 +1,7 @@
 {
 	"projectId": 1,
 	"projectName": "Silly game",
-	"scene": "Secret Level",
+	"scene": "Silly Game",
 	"creator": "Jacob Barry",
 	"version": "2.0.3",
 	"port": 8000,
