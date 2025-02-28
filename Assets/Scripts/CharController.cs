@@ -40,10 +40,10 @@ public class CharController : MonoBehaviour
         if (grounded && velocity.y < 0)
         {
             velocity.y = -2f; // Apply a small downward force to stay grounded
-            Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.green, 0.1f);
+            Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.green, 0.2f);
         }
         else
-            Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.red, 0.1f);
+            Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.red, 0.2f);
 
         // Get the camera's forward direction
         Camera camera = Camera.main;

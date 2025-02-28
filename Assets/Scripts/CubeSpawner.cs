@@ -36,7 +36,6 @@ public class CubeSpawner : MonoBehaviour
     private int purplePity = 4000;
     private int cyanPity = 10000; // Cyan cube pity value
 
-    private ScreenShake screenShake;
 
     public void Start()
     {
@@ -58,8 +57,6 @@ public class CubeSpawner : MonoBehaviour
                 Debug.LogError("CyanCubeBuildupAudio object not found in the scene.");
             }
         }
-
-        screenShake = Camera.main.GetComponent<ScreenShake>();
         UpdatePityText();
 
 
@@ -103,12 +100,6 @@ public class CubeSpawner : MonoBehaviour
             GameObject cubeToSpawn = ChooseCubeType(randomValue);
             GameObject newCube = Instantiate(cubeToSpawn, spawnPos, Quaternion.identity);
             spawnedCubes.Add(newCube);
-
-            // Apply screen shake based on cube type
-            if (cubeToSpawn == purpleCubePrefab && screenShake != null)
-            {
-                screenShake.TriggerShake(1f, 1f); // Shake for purple cube
-            }
 
         }
 
@@ -216,11 +207,6 @@ public class CubeSpawner : MonoBehaviour
         GameObject cyanCube = Instantiate(cyanCubePrefab, spawnPos, Quaternion.identity);
         spawnedCubes.Add(cyanCube);
 
-        // Trigger screen shake for cyan cube (moderate shake)
-        if (screenShake != null)
-        {
-            screenShake.TriggerShake(2f, 2.5f); // Moderate shake for cyan cube
-        }
 
         AudioSource cyanCubeAudio = cyanCube.GetComponent<AudioSource>();
         if (cyanCubeAudio != null)
@@ -244,11 +230,6 @@ public class CubeSpawner : MonoBehaviour
         GameObject godCube = Instantiate(godCubePrefab, spawnPos, Quaternion.identity);
         spawnedCubes.Add(godCube);
 
-        // Trigger screen shake for god cube (strong shake)
-        if (screenShake != null)
-        {
-            screenShake.TriggerShake(1f, 5f); // Strong shake for god cube
-        }
 
         AudioSource godCubeAudio = godCube.GetComponent<AudioSource>();
         if (godCubeAudio != null)
