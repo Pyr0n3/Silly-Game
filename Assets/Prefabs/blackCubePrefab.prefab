@@ -44,8 +44,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.62614334, b: 0, a: 1}
-  m_Intensity: 10000
-  m_Range: 10.9
+  m_Intensity: 100000
+  m_Range: 37.19
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -219,9 +219,10 @@ GameObject:
   - component: {fileID: 1980906303872477}
   - component: {fileID: 9022633235132574217}
   - component: {fileID: 3334425902159335185}
+  - component: {fileID: 1799891576221167614}
   m_Layer: 0
   m_Name: blackCubePrefab
-  m_TagString: Untagged
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,8 +236,8 @@ Transform:
   m_GameObject: {fileID: 7591741355464978594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 342.97372, y: 72.59697, z: 215.71602}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 311.36, y: 293.63, z: 243.71}
+  m_LocalScale: {x: 11.310055, y: 11.310055, z: 11.310055}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8144312083138192535}
@@ -5073,6 +5074,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 17.3, y: 17.3, z: 17.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1799891576221167614
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591741355464978594}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8812902480358669869
 GameObject:
   m_ObjectHideFlags: 0
@@ -5440,7 +5468,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.015
+      scalar: 0.15
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5904,7 +5932,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.053
+      value: 0.58
       mode: 0
       spread: 0
       speed:
@@ -6023,7 +6051,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 223.33
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -8972,7 +9000,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 1
+    enabled: 0
     ratio: 0.1
     light: {fileID: 9075959114864868225}
     randomDistribution: 1

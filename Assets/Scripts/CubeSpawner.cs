@@ -6,8 +6,11 @@ using Unity.VisualScripting;
 
 public class CubeSpawner : MonoBehaviour
 {
+    //luck boost booleans
     public bool secretOn;
+    public bool hasCompletedGame;
 
+    //Cube prefabs
     public GameObject redCubePrefab;
     public GameObject greenCubePrefab;
     public GameObject blueCubePrefab;
@@ -15,12 +18,15 @@ public class CubeSpawner : MonoBehaviour
     public GameObject purpleCubePrefab;
     public GameObject godCubePrefab;
     public GameObject cyanCubePrefab; // Added cyan cube prefab
+    public GameObject blackCubePrefab; // Black hole "cube"
+
     public GameObject Trophy;
 
     public TextMeshPro pityText;
     public AudioSource godCubeBuildupAudio;
     public AudioSource cyanCubeBuildupAudio; // Added cyan buildup audio reference
 
+    private float blackProbability = 0.0000001f;
     private float godProbability = 0.000001f;
     private float cyanProbability = 0.00001f; // 1 in 100,000 chance for cyan cube
     private float purpleProbability = 0.0001f;
@@ -32,11 +38,17 @@ public class CubeSpawner : MonoBehaviour
     private List<GameObject> spawnedCubes = new List<GameObject>();
     private int maxCubes = 3000;
 
+    private int blackPity = 1000000;
     private int godPity = 250000;
-    private int purplePity = 4000;
-    private int cyanPity = 10000; // Cyan cube pity value
+    private int purplePity = 6000;
+    private int cyanPity = 20000; // Cyan cube pity value
 
-
+    private void Update()
+    {
+        if (GameObject.Find("Trophy").activeSelf)
+            hasCompletedGame = true;
+        else hasCompletedGame = false;
+    }
     public void Start()
     {
         // Initialize text, audio, and screen shake as before
@@ -66,28 +78,31 @@ public class CubeSpawner : MonoBehaviour
     {
         float randomValue = Random.value;
         Debug.Log(randomValue);
-        
+
+        blackPity--;
+        if (blackPity < 0) blackPity = 1000000;
         godPity--;
         if (godPity < 0) godPity = 250000;
         purplePity--;
         if (purplePity < 0) purplePity = 4000;
+        cyanPity--;
+        if (cyanPity < 0) cyanPity = 45000;
 
-        cyanPity--; // Decrease cyan pity
-
-        if (cyanPity == 0) // If cyan pity reaches 0, force a cyan cube spawn
+        if (randomValue < blackProbability)
         {
-            StartCoroutine(PlayCyanCubeSpawn());
-            cyanPity = 45000; // Reset cyan pity after spawning
-            return;
+           PlayBlackCubeSpawn();
         }
-
-        if (randomValue < godProbability)
+        else if (randomValue < godProbability)
         {
             StartCoroutine(PlayGodCubeSpawn());
         }
         else if (randomValue < cyanProbability)
         {
-            StartCoroutine(PlayCyanCubeSpawn()); // Start cyan cube spawn sequence
+            StartCoroutine(PlayCyanCubeSpawn()); 
+        }
+        else if (randomValue <purpleProbability)
+        {
+            PlayPurpleCubeSpawn();
         }
         else
         {
@@ -105,15 +120,19 @@ public class CubeSpawner : MonoBehaviour
 
 
 
-        if (secretOn == true)
+        if (secretOn == true || hasCompletedGame == true)
         {
+            blackProbability = blackPity == 0 ? 1f : 0.0000005f;
             godProbability = godPity == 0 ? 1f : 0.000005f;
+            cyanProbability = cyanPity == 0 ? 1f : 0.00005f;
             purpleProbability = purplePity == 0 ? 1f : 0.0005f;
             UpdatePityText();
         }
         else
         {
+            blackProbability = blackPity == 0 ? 1f : 0.0000001f;
             godProbability = godPity == 0 ? 1f : 0.000001f;
+            cyanProbability = cyanPity == 0 ? 1f : 0.00001f;
             purpleProbability = purplePity == 0 ? 1f : 0.0001f;
             UpdatePityText();
         }
@@ -138,8 +157,9 @@ public class CubeSpawner : MonoBehaviour
     private GameObject ChooseCubeType(float randomValue)
 {
     // Adjust probabilities based on the secret buff
-    if (secretOn)
+    if (secretOn || hasCompletedGame)
     {
+        blackProbability = 0.0000005f;
         godProbability = 0.000005f;
         cyanProbability = 0.00005f;
         purpleProbability = 0.0005f;
@@ -150,6 +170,7 @@ public class CubeSpawner : MonoBehaviour
     }
     else
     {
+        blackProbability = 0.0000001f;
         godProbability = 0.000001f;
         cyanProbability = 0.00001f;
         purpleProbability = 0.0001f;
@@ -161,6 +182,9 @@ public class CubeSpawner : MonoBehaviour
 
     // Normalize probabilities for comparison
     float cumulativeProbability = 0f;
+
+    cumulativeProbability += blackProbability;
+    if (randomValue < cumulativeProbability) return blackCubePrefab;
 
     cumulativeProbability += godProbability;
     if (randomValue < cumulativeProbability) return godCubePrefab;
@@ -187,7 +211,25 @@ public class CubeSpawner : MonoBehaviour
     Debug.LogWarning("Random value did not match any probability range!");
     return null;
 }
+    private void PlayBlackCubeSpawn()
+    {
+        Vector3 spawnPos = new Vector3(243f, 216f, 171f);
 
+        GameObject blackCube = Instantiate(blackCubePrefab, spawnPos, Quaternion.identity);
+        spawnedCubes.Add(blackCube);
+    }
+
+    private void PlayPurpleCubeSpawn()
+    {
+        Vector3 spawnPos = new Vector3(
+    Random.Range(176f, 371f),
+    157.5f,
+    Random.Range(63f, 298f)
+        );
+
+        GameObject purpleCube = Instantiate(purpleCubePrefab, spawnPos, Quaternion.identity);
+        spawnedCubes.Add(purpleCube);
+    }
 
     private IEnumerator PlayCyanCubeSpawn()
     {
@@ -238,12 +280,21 @@ public class CubeSpawner : MonoBehaviour
             godCubeAudio.Play(); // Continue audio after the buildup
         }
     }
+/*
+    private IEnumerator PlayBlackCubeSpawn()
+    {
+        Vector3 spawnPos = new Vector3(243f, 216f, 171f);
 
+        GameObject blackCube = Instantiate(blackCubePrefab, spawnPos, Quaternion.identity);
+        spawnedCubes.Add(blackCube);
+        
+    }
+*/
     private void UpdatePityText()
     {
         if (pityText != null)
         {
-            pityText.text = $"God Pity: {godPity}\nCyan Pity: {cyanPity}\nPurple Pity: {purplePity}";
+            pityText.text = $"God Pity: {godPity}\nCyan Pity: {cyanPity}\nPurple Pity: {purplePity}\n Black Pity: {blackPity}";
         }
     }
 }

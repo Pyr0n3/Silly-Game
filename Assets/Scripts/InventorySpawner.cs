@@ -5,7 +5,7 @@ public class InventorySpawner : MonoBehaviour
     public InventoryManager inventoryManager;
 
     public GameObject redCubePrefab, greenCubePrefab, blueCubePrefab;
-    public GameObject goldCubePrefab, purpleCubePrefab, cyanCubePrefab, godCubePrefab;
+    public GameObject goldCubePrefab, purpleCubePrefab, cyanCubePrefab, godCubePrefab, blackCubePrefab;
 
     public void SpawnCubeFromInventory(int slotIndex)
     {
@@ -27,6 +27,7 @@ public class InventorySpawner : MonoBehaviour
             "purple" => purpleCubePrefab,
             "cyan" => cyanCubePrefab,
             "god" => godCubePrefab,
+            "black" => blackCubePrefab,
             _ => null,
         };
 
@@ -38,6 +39,7 @@ public class InventorySpawner : MonoBehaviour
 
         Vector3 spawnOffset = cubeType switch
         {
+            "black" => new Vector3(0, 268f, 400f),
             "god" => new Vector3(0, 108f, 200f),
             "cyan" => new Vector3(0, 18f, 100f),
             "purple" => new Vector3(0, 8f, 50f),
