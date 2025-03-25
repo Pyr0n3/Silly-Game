@@ -8480,8 +8480,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionDistance: 3
+  pickupDistance: 1000
   initialHoldDelay: 0.5
   continuousSpawnInterval: 0.1
+  inventoryManager: {fileID: 0}
 --- !u!114 &1092646144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11119,6 +11121,6 @@ SceneRoots:
   - {fileID: 1092646145}
   - {fileID: 1353729733}
   - {fileID: 1256389460}
-  - {fileID: 1460358068}
   - {fileID: 1767414152}
   - {fileID: 495234753}
+  - {fileID: 1460358068}
