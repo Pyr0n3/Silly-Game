@@ -23,6 +23,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Secret Level.unity
     guid: 427504921b85f644d93cbf1e2e92a984
+  - enabled: 1
+    path: Assets/Scenes/Secret Level 2.unity
+    guid: db62e052bfd94204ba14c5ded1edaec4
+  - enabled: 1
+    path: Assets/Scenes/Secret Level 3.unity
+    guid: cc3280d04b310714fb82f947be6d5d3e
+  - enabled: 1
+    path: Assets/Scenes/Secret Level 4.unity
+    guid: 761c9bac710f12b44a16ee29b82e38cd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
