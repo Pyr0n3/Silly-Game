@@ -17,34 +17,41 @@ public class CubeSpawner : MonoBehaviour
     public GameObject goldCubePrefab;
     public GameObject purpleCubePrefab;
     public GameObject godCubePrefab;
-    public GameObject cyanCubePrefab; // Added cyan cube prefab
+    public GameObject cyanCubePrefab; 
     public GameObject blackCubePrefab; // Black hole "cube"
+    public GameObject mapCubePrefab;
 
     public GameObject Trophy;
+    public GameObject secretTrophy;
 
     public TextMeshPro pityText;
     public AudioSource godCubeBuildupAudio;
     public AudioSource cyanCubeBuildupAudio; // Added cyan buildup audio reference
 
+    private float mapProbability = 0.00000001f;
     private float blackProbability = 0.0000001f;
     private float godProbability = 0.000001f;
-    private float cyanProbability = 0.00001f; // 1 in 100,000 chance for cyan cube
+    private float cyanProbability = 0.00001f; 
     private float purpleProbability = 0.0001f;
     private float goldProbability = 0.001f;
     private float blueProbability = 0.125f;
     private float greenProbability = 0.25f;
-    private float redProbability = 0.5f; 
+    private float redProbability = 1f; 
 
     private List<GameObject> spawnedCubes = new List<GameObject>();
     private int maxCubes = 3000;
 
-    private int blackPity = 1000000;
-    private int godPity = 250000;
-    private int purplePity = 6000;
-    private int cyanPity = 20000; // Cyan cube pity value
+    private int mapPity = 10000000;
+    private int blackPity = 2000000;
+    private int godPity = 500000;
+    private int purplePity = 12000;
+    private int cyanPity = 80000; // Cyan cube pity value
 
     private void Update()
     {
+        if (GameObject.Find("secretTrophy").activeSelf)
+            secretOn = true;
+        else secretOn = false;
         if (GameObject.Find("Trophy").activeSelf)
             hasCompletedGame = true;
         else hasCompletedGame = false;
@@ -78,17 +85,22 @@ public class CubeSpawner : MonoBehaviour
     {
         float randomValue = Random.value;
         Debug.Log(randomValue);
-
+        mapPity--;
+        if (mapPity < 0) mapPity = 10000000;
         blackPity--;
-        if (blackPity < 0) blackPity = 1000000;
+        if (blackPity < 0) blackPity = 2000000;
         godPity--;
-        if (godPity < 0) godPity = 250000;
+        if (godPity < 0) godPity = 500000;
         purplePity--;
-        if (purplePity < 0) purplePity = 4000;
+        if (purplePity < 0) purplePity = 12000;
         cyanPity--;
-        if (cyanPity < 0) cyanPity = 45000;
+        if (cyanPity < 0) cyanPity = 80000;
 
-        if (randomValue < blackProbability)
+        if (randomValue < mapProbability)
+        {
+            PlayMapCubeSpawn();
+        }
+        else if (randomValue < blackProbability)
         {
            PlayBlackCubeSpawn();
         }
@@ -119,9 +131,18 @@ public class CubeSpawner : MonoBehaviour
         }
 
 
-
-        if (secretOn == true || hasCompletedGame == true)
+        if (secretOn && hasCompletedGame)
         {
+            mapProbability = mapPity == 0 ? 1f : 0.00000025f;
+            blackProbability = blackPity == 0 ? 1f : 0.0000025f;
+            godProbability = godPity == 0 ? 1f : 0.000025f;
+            cyanProbability = cyanPity == 0 ? 1f : 0.00015f;
+            purpleProbability = purplePity == 0 ? 1f : 0.0005f;
+            UpdatePityText();
+        }
+        else if (secretOn || hasCompletedGame)
+        {
+            mapProbability = mapPity == 0 ? 1f : 0.00000005f;
             blackProbability = blackPity == 0 ? 1f : 0.0000005f;
             godProbability = godPity == 0 ? 1f : 0.000005f;
             cyanProbability = cyanPity == 0 ? 1f : 0.00005f;
@@ -130,6 +151,7 @@ public class CubeSpawner : MonoBehaviour
         }
         else
         {
+            mapProbability = mapPity == 0 ? 1f : 0.00000001f;
             blackProbability = blackPity == 0 ? 1f : 0.0000001f;
             godProbability = godPity == 0 ? 1f : 0.000001f;
             cyanProbability = cyanPity == 0 ? 1f : 0.00001f;
@@ -157,8 +179,21 @@ public class CubeSpawner : MonoBehaviour
     private GameObject ChooseCubeType(float randomValue)
 {
     // Adjust probabilities based on the secret buff
-    if (secretOn || hasCompletedGame)
+    if (secretOn && hasCompletedGame)
     {
+        mapProbability = 0.00000025f;
+        blackProbability = 0.0000025f;
+        godProbability = 0.000025f;
+        cyanProbability = 0.00015f;
+        purpleProbability = 0.0005f;
+        goldProbability = 0.01f;
+        blueProbability = 1f;
+        greenProbability = 0f;
+        redProbability = 0f;
+    }
+    else if (secretOn || hasCompletedGame)
+    {
+        mapProbability = 0.00000005f;
         blackProbability = 0.0000005f;
         godProbability = 0.000005f;
         cyanProbability = 0.00005f;
@@ -170,6 +205,7 @@ public class CubeSpawner : MonoBehaviour
     }
     else
     {
+        mapProbability = 0.00000001f;
         blackProbability = 0.0000001f;
         godProbability = 0.000001f;
         cyanProbability = 0.00001f;
@@ -182,6 +218,9 @@ public class CubeSpawner : MonoBehaviour
 
     // Normalize probabilities for comparison
     float cumulativeProbability = 0f;
+
+    cumulativeProbability += mapProbability;
+    if (randomValue < cumulativeProbability) return mapCubePrefab;
 
     cumulativeProbability += blackProbability;
     if (randomValue < cumulativeProbability) return blackCubePrefab;
@@ -211,6 +250,18 @@ public class CubeSpawner : MonoBehaviour
     Debug.LogWarning("Random value did not match any probability range!");
     return null;
 }
+    private void PlayMapCubeSpawn()
+    {
+        Vector3 spawnPos = new Vector3(
+               Random.Range(176f, 371f),
+               157.5f,
+               Random.Range(63f, 298f)
+           );
+
+        GameObject mapCube = Instantiate(mapCubePrefab, spawnPos, Quaternion.identity);
+        spawnedCubes.Add(mapCube);
+
+    }
     private void PlayBlackCubeSpawn()
     {
         Vector3 spawnPos = new Vector3(243f, 216f, 171f);
@@ -235,7 +286,7 @@ public class CubeSpawner : MonoBehaviour
     {
         Vector3 spawnPos = new Vector3(
                        Random.Range(176f, 371f),
-                       57.5f,
+                       157.5f,
                        Random.Range(63f, 298f)
                    );
 
@@ -294,7 +345,7 @@ public class CubeSpawner : MonoBehaviour
     {
         if (pityText != null)
         {
-            pityText.text = $"God Pity: {godPity}\nCyan Pity: {cyanPity}\nPurple Pity: {purplePity}\n Black Pity: {blackPity}";
+            pityText.text = $"Map Pity: {mapPity}\nBlack Pity: {blackPity}\nGod Pity: {godPity}\nCyan Pity: {cyanPity}\nPurple Pity: {purplePity}";
         }
     }
 }

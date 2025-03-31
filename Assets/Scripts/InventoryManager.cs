@@ -5,7 +5,7 @@ public class InventoryManager : MonoBehaviour
 {
     public Image[] inventorySlots; // Array of inventory slot UI images
     public Sprite redCubeInventory, greenCubeInventory, blueCubeInventory;
-    public Sprite goldCubeInventory, purpleCubeInventory, cyanCubeInventory, godCubeInventory, blackCubeInventory;
+    public Sprite goldCubeInventory, purpleCubeInventory, cyanCubeInventory, godCubeInventory, blackCubeInventory, mapCubeInventory;
 
     private string[] inventoryItems = new string[10]; // Tracks the type of block in each inventory slot
     private GameManager gameManager; // Reference to GameManager to save the inventory
@@ -117,6 +117,7 @@ public class InventoryManager : MonoBehaviour
             "cyan" => cyanCubeInventory,
             "god" => godCubeInventory,
             "black" => blackCubeInventory,
+            "map" => mapCubeInventory,
             _ => null,
         };
     }
