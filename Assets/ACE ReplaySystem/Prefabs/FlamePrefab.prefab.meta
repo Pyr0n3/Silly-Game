@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3b10eebd420e89e4ba89dfeed2ef700c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226002
+  packageName: ACE Replay
+  packageVersion: 1.0.0
+  assetPath: Assets/ACE ReplaySystem/Prefabs/FlamePrefab.prefab
+  uploadId: 513028

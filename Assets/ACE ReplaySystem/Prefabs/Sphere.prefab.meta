@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f8d24d4bd1eaa97488ad597ff6adb827
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226002
+  packageName: ACE Replay
+  packageVersion: 1.0.0
+  assetPath: Assets/ACE ReplaySystem/Prefabs/Sphere.prefab
+  uploadId: 513028

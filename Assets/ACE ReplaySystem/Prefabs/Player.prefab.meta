@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8c10ca2d3f27a2549be73fd3a0c44dc8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226002
+  packageName: ACE Replay
+  packageVersion: 1.0.0
+  assetPath: Assets/ACE ReplaySystem/Prefabs/Player.prefab
+  uploadId: 513028

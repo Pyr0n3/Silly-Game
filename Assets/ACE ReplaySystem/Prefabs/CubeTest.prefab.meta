@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 14ce733b651669d43a2d7982adfc3138
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226002
+  packageName: ACE Replay
+  packageVersion: 1.0.0
+  assetPath: Assets/ACE ReplaySystem/Prefabs/CubeTest.prefab
+  uploadId: 513028

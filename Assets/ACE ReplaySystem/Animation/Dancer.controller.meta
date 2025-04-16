@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 88d8cdbc9fbdb064c9f8ca6d9213741b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226002
+  packageName: ACE Replay
+  packageVersion: 1.0.0
+  assetPath: Assets/ACE ReplaySystem/Animation/Dancer.controller
+  uploadId: 513028
