@@ -182,12 +182,12 @@ public class CubeSpawner : MonoBehaviour
     if (secretOn && hasCompletedGame)
     {
         mapProbability = 0.00000025f;
-        blackProbability = 0.0000025f;
+        blackProbability = 1f;
         godProbability = 0.000025f;
         cyanProbability = 0.00015f;
         purpleProbability = 0.0005f;
         goldProbability = 0.01f;
-        blueProbability = 1f;
+        blueProbability = 0.1f;
         greenProbability = 0f;
         redProbability = 0f;
     }
